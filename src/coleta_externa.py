@@ -24,9 +24,9 @@ UFS = {
     "42": "SC", "43": "RS", "50": "MS", "51": "MT", "52": "GO", "53": "DF",
 }
 OVERPASS = [
+    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
     "https://overpass-api.de/api/interpreter",
     "https://overpass.private.coffee/api/interpreter",
-    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
 ]
 HEADERS = {"User-Agent": "occasion-intelligence-case/0.1 (projeto academico)"}
 
@@ -39,7 +39,7 @@ def pizzarias_osm(sigla: str) -> int:
     nwr["cuisine"~"pizza",i](area.a);
     out count;
     """
-    for tentativa in range(6):
+    for tentativa in range(12):
         url = OVERPASS[tentativa % len(OVERPASS)]
         try:
             r = requests.post(url, data={"data": q}, headers=HEADERS, timeout=240)
@@ -67,13 +67,19 @@ def main() -> None:
     renda = sidra("https://apisidra.ibge.gov.br/values/t/7531/n3/all/v/10824/p/2018",
                   "renda_media_pc_uf")
 
-    linhas = []
+    # cache por UF: a coleta pode ser interrompida e retomada sem refazer o que já veio
+    cache_path = OUT / "pizzarias_osm_cache.csv"
+    cache = (pd.read_csv(cache_path, dtype={"uf": str}).set_index("sigla")["pizzarias_osm"].to_dict()
+             if cache_path.exists() else {})
     for cod, sigla in UFS.items():
-        n = pizzarias_osm(sigla)
-        print(sigla, n)
-        linhas.append({"uf": cod, "sigla": sigla, "pizzarias_osm": n})
+        if sigla in cache:
+            continue
+        cache[sigla] = pizzarias_osm(sigla)
+        print(sigla, cache[sigla], flush=True)
+        pd.DataFrame([{"uf": c, "sigla": s, "pizzarias_osm": cache[s]} for c, s in UFS.items() if s in cache]
+                     ).to_csv(cache_path, index=False)
         time.sleep(3)
-    df = pd.DataFrame(linhas).set_index("uf")
+    df = pd.DataFrame([{"uf": c, "sigla": s, "pizzarias_osm": cache[s]} for c, s in UFS.items()]).set_index("uf")
     df = df.join(pop).join(renda)
     df["pizzarias_100k"] = df["pizzarias_osm"] / df["populacao"] * 1e5
     df.reset_index().to_csv(OUT / "territorio_uf.csv", index=False)

@@ -48,7 +48,7 @@ export default function App() {
 
   async function consultarClima() {
     try {
-      const c = await api.clima(ctx.uf);
+      const c = await api.clima(ctx.uf, ctx.dia_semana);
       setClima(c);
       const novo = { ...ctx, chuva_prevista: c.chuva_prevista };
       setCtx(novo);
@@ -95,7 +95,7 @@ export default function App() {
           <fieldset>
             <legend>Quando</legend>
             <label>Dia da semana
-              <select value={ctx.dia_semana} onChange={(e) => set("dia_semana", e.target.value)}>
+              <select value={ctx.dia_semana} onChange={(e) => { set("dia_semana", e.target.value); setClima(null); set("chuva_prevista", null); }}>
                 {DIAS.map((d) => <option key={d} value={d}>{DIA_LABEL[d]}</option>)}
               </select>
             </label>
@@ -133,7 +133,8 @@ export default function App() {
               <button type="button" className="secundario" onClick={consultarClima}>Consultar previsão do tempo</button>
               {clima && (
                 <span>
-                  {clima.data}: {clima.prob_chuva_max}% de chance de chuva, máx. {clima.temp_max}°C →{" "}
+                  Previsão para {DIA_LABEL[ctx.dia_semana].toLowerCase()}, {clima.data.split("-").reverse().join("/")}:{" "}
+                  {clima.prob_chuva_max}% de chance de chuva, máx. {clima.temp_max}°C →{" "}
                   <b>{clima.chuva_prevista ? "chuva prevista" : "sem chuva relevante"}</b>
                 </span>
               )}

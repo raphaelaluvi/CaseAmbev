@@ -101,6 +101,18 @@ def test_justificativa_sempre_presente_e_sem_promessa_de_venda():
         assert "vai vender" not in texto and "garante" not in texto and "aumenta as vendas" not in texto
 
 
+# ------------------------------------------------------------------ clima: dia da previsão
+def test_previsao_usa_proximo_dia_da_semana_escolhido():
+    from datetime import date
+
+    from api.main import proxima_data
+    sabado = date(2026, 11, 21)
+    assert proxima_data("Sabado", sabado) == sabado                    # mesmo dia -> hoje
+    assert proxima_data("Sexta-Feira", sabado) == date(2026, 11, 27)   # próxima sexta
+    assert proxima_data("Domingo", sabado) == date(2026, 11, 22)       # amanhã
+    assert proxima_data(None, sabado) == sabado                        # sem dia -> hoje
+
+
 # ------------------------------------------------------------------ API
 artefatos = [ROOT / "models" / "occasion_model.joblib", ROOT / "data" / "external" / "territorio_uf.csv"]
 

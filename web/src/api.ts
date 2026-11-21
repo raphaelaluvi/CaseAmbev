@@ -92,5 +92,6 @@ export const api = {
       body: JSON.stringify({ ...c, metadata: { versao_contrato: "1.0", versao_modelo_esperada: "1.0.0", origem: "site" } }),
     }),
   oportunidades: () => req<Oportunidades>("/oportunidades"),
-  clima: (uf: string) => req<Clima>(`/clima/${uf}`),
+  // previsão para a PRÓXIMA ocorrência do dia da semana escolhido no simulador
+  clima: (uf: string, diaSemana: string) => req<Clima>(`/clima/${uf}?dia_semana=${encodeURIComponent(diaSemana)}`),
 };

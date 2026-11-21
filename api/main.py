@@ -5,7 +5,9 @@ Docs:   http://localhost:8000/docs
 """
 from __future__ import annotations
 
+from datetime import date, datetime, timedelta
 from typing import Literal
+from zoneinfo import ZoneInfo
 
 import requests
 from fastapi import FastAPI, HTTPException
@@ -33,6 +35,10 @@ Dia = Literal[tuple(DIAS)]
 Refeicao = Literal[tuple(REFEICOES)]
 Local = Literal[tuple(LOCAIS)]
 UF = Literal[tuple(UF_SIGLA_COD)]
+
+# dia da semana -> número do Python (segunda = 0 ... domingo = 6)
+DIAS_ISO = {"Segunda-Feira": 0, "Terca-Feira": 1, "Quarta-Feira": 2, "Quinta-Feira": 3,
+            "Sexta-Feira": 4, "Sabado": 5, "Domingo": 6}
 
 
 VERSAO_CONTRATO = "1.0"
@@ -95,16 +101,27 @@ def predict(ctx: Contexto):
     return out
 
 
+def proxima_data(dia_semana: str | None, hoje: date) -> date:
+    """Próxima ocorrência do dia da semana escolhido (hoje, se for o mesmo dia)."""
+    if not dia_semana:
+        return hoje
+    alvo = DIAS_ISO[dia_semana]
+    return hoje + timedelta(days=(alvo - hoje.weekday()) % 7)
+
+
 @app.get("/clima/{uf}")
-def clima(uf: str):
-    """Previsão de chuva para hoje na capital da UF (Open-Meteo, sem chave de API)."""
+def clima(uf: str, dia_semana: Dia | None = None):
+    """Previsão de chuva na capital da UF para a PRÓXIMA ocorrência do dia da semana escolhido
+    (ou para hoje, se nenhum dia for informado). Open-Meteo, sem chave de API, até 7 dias à frente."""
     uf = uf.upper()
     if uf not in CAPITAIS:
         raise HTTPException(404, "UF inválida")
     lat, lon = CAPITAIS[uf]
+    alvo = proxima_data(dia_semana, datetime.now(ZoneInfo("America/Sao_Paulo")).date())
     try:
         r = requests.get("https://api.open-meteo.com/v1/forecast", timeout=10, params={
-            "latitude": lat, "longitude": lon, "timezone": "America/Sao_Paulo", "forecast_days": 1,
+            "latitude": lat, "longitude": lon, "timezone": "America/Sao_Paulo",
+            "start_date": alvo.isoformat(), "end_date": alvo.isoformat(),
             "daily": "precipitation_probability_max,precipitation_sum,temperature_2m_max",
         })
         r.raise_for_status()
@@ -113,10 +130,10 @@ def clima(uf: str):
         raise HTTPException(502, f"Open-Meteo indisponível: {e}") from e
     prob = d["precipitation_probability_max"][0]
     return {
-        "uf": uf, "data": d["time"][0], "prob_chuva_max": prob,
+        "uf": uf, "data": d["time"][0], "dia_semana": dia_semana, "prob_chuva_max": prob,
         "chuva_mm": d["precipitation_sum"][0], "temp_max": d["temperature_2m_max"][0],
         "chuva_prevista": bool(prob is not None and prob >= 60),
-        "fonte": "Open-Meteo (previsão do dia, capital da UF)",
+        "fonte": "Open-Meteo (previsão diária, capital da UF)",
     }
 
 

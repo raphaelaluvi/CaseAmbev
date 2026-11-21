@@ -1,19 +1,28 @@
-pandas>=2.2
-numpy
-pyarrow
-scikit-learn
-lightgbm
-shap
-matplotlib
-seaborn
-jupyter
-nbformat
-nbconvert
-ipykernel
-xlrd
-openpyxl
-requests
-fastapi
-uvicorn
-pydantic
-pytest
+# Ambiente fixado (testado com Python 3.14.5 no Windows 11)
+# Dados
+pandas==3.1.1
+numpy==2.5.5
+pyarrow==26.0.1
+xlrd==2.0.2
+openpyxl==3.1.5
+requests==2.34.2
+# Modelagem e explicabilidade
+scikit-learn==1.9.1
+lightgbm==4.7.0
+shap==0.54.1
+joblib==1.6.0
+# Gráficos e notebooks
+matplotlib==3.11.2
+seaborn==0.13.2
+jupyter==1.1.1
+jupyterlab==4.6.6
+nbformat==5.11.1
+nbconvert==7.17.2
+ipykernel==7.4.0
+# API
+fastapi==0.165.0
+uvicorn==0.54.0
+pydantic==2.14.4
+httpx==0.28.1
+# Testes
+pytest==9.2.0

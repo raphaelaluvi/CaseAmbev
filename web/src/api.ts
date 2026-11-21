@@ -50,6 +50,8 @@ export type Predicao = {
     taxa_base: number;
     limiar_alta: number;
     metricas_teste: Record<string, number>;
+    versao_contrato?: string;
+    aviso?: string | null;
   };
 };
 
@@ -83,7 +85,12 @@ async function req<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   predict: (c: Contexto) =>
-    req<Predicao>("/predict", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(c) }),
+    req<Predicao>("/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      // metadados de versão na entrada: o site declara o contrato que espera e quem está chamando
+      body: JSON.stringify({ ...c, metadata: { versao_contrato: "1.0", versao_modelo_esperada: "1.0.0", origem: "site" } }),
+    }),
   oportunidades: () => req<Oportunidades>("/oportunidades"),
   clima: (uf: string) => req<Clima>(`/clima/${uf}`),
 };

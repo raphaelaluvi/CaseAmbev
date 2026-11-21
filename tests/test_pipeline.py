@@ -120,3 +120,8 @@ def test_contrato_api():
         assert campo in out
     assert 0 <= out["occasion_score"] <= 1
     assert c.post("/predict", json={"uf": "XX"}).status_code == 422
+    # metadados de versão na entrada
+    assert out["model_metadata"]["versao_contrato"] == "1.0"
+    r2 = c.post("/predict", json={"metadata": {"versao_modelo_esperada": "0.9", "origem": "teste"}}).json()
+    assert r2["model_metadata"]["aviso"] and r2["model_metadata"]["entrada"]["origem"] == "teste"
+    assert c.post("/predict", json={"metadata": {"versao_contrato": "2.0"}}).status_code == 422

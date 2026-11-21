@@ -35,8 +35,18 @@ Local = Literal[tuple(LOCAIS)]
 UF = Literal[tuple(UF_SIGLA_COD)]
 
 
+VERSAO_CONTRATO = "1.0"
+
+
+class MetadadosEntrada(BaseModel):
+    """Metadados de versão enviados por quem chama a API (roadmap: 'metadados de versão na entrada')."""
+    versao_contrato: str = Field(VERSAO_CONTRATO, description="Versão do formato de entrada/saída que o cliente espera")
+    versao_modelo_esperada: str | None = Field(None, description="Se informada e diferente da carregada, a resposta traz um aviso")
+    origem: str = Field("api", description="Quem fez a chamada (ex.: site, notebook, teste)")
+
+
 class Contexto(BaseModel):
-    """Contrato de entrada: contexto temporal, de público, canal e região."""
+    """Contrato de entrada: contexto temporal, de público, canal e região, mais metadados de versão."""
     dia_semana: Dia = "Sexta-Feira"
     hora: int = Field(20, ge=0, le=23)
     refeicao: Refeicao = "jantar"
@@ -51,6 +61,7 @@ class Contexto(BaseModel):
     n_criancas: int = Field(1, ge=0, le=15)
     n_adolescentes: int = Field(0, ge=0, le=15)
     chuva_prevista: bool | None = Field(None, description="Se informado, entra na regra de delivery")
+    metadata: MetadadosEntrada = Field(default_factory=MetadadosEntrada)
 
 
 @app.get("/health")
@@ -69,7 +80,19 @@ def opcoes():
 def predict(ctx: Contexto):
     dados = ctx.model_dump()
     chuva = dados.pop("chuva_prevista")
-    return servico().prever(dados, chuva_prevista=chuva)
+    meta_in = dados.pop("metadata")
+    if meta_in["versao_contrato"] != VERSAO_CONTRATO:
+        raise HTTPException(422, f"Versão de contrato {meta_in['versao_contrato']} não suportada (atual: {VERSAO_CONTRATO})")
+    out = servico().prever(dados, chuva_prevista=chuva)
+    versao_modelo = out["model_metadata"]["versao"]
+    out["model_metadata"]["versao_contrato"] = VERSAO_CONTRATO
+    out["model_metadata"]["entrada"] = meta_in
+    esperada = meta_in["versao_modelo_esperada"]
+    out["model_metadata"]["aviso"] = (
+        f"Modelo carregado ({versao_modelo}) difere do esperado ({esperada})"
+        if esperada and esperada != versao_modelo else None
+    )
+    return out
 
 
 @app.get("/clima/{uf}")

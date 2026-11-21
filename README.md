@@ -76,9 +76,12 @@ cd web && npm install && npm run dev
 ```
 
 ### Contrato da API — `POST /predict`
-Entrada (todos com valor padrão): `dia_semana`, `hora`, `refeicao`, `local`, `uf`, `urbano`, `idade`, `sexo`, `anos_estudo`, `renda_pc`, `n_moradores`, `n_criancas`, `n_adolescentes`, `chuva_prevista` (opcional).
+Entrada (todos com valor padrão): `dia_semana`, `hora`, `refeicao`, `local`, `uf`, `urbano`, `idade`, `sexo`, `anos_estudo`, `renda_pc`, `n_moradores`, `n_criancas`, `n_adolescentes`, `chuva_prevista` (opcional) e `metadata` (metadados de versão: `versao_contrato`, `versao_modelo_esperada`, `origem`). Uma versão de contrato não suportada devolve erro 422; um modelo diferente do esperado gera um `aviso` em `model_metadata`.
 
 Saída: `occasion_score`, `lift`, `classification`, `top_factors`, `job`, `segmento`, `recommendation_category`, `recommendation_label`, `recommendation_reason`, `acoes_complementares`, `model_metadata`.
+
+### Por que React + Vite e não Streamlit
+O TAPI cita Streamlit como stack de referência. Optei por **React + Vite** consumindo a **API FastAPI**: a interface fica separada da lógica (camadas independentes, como pede a arquitetura do TAPI), o mesmo contrato `/predict` serve o site, os testes e qualquer outro cliente, e o front pode ser publicado como site estático.
 
 ## Limitações
 - A POF identifica a **categoria** "refrigerante de guaraná", não a marca.

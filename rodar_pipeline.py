@@ -8,7 +8,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-NOTEBOOKS = ["01_construcao_base", "02_eda_territorio", "03_modelos_validacao", "04_explicabilidade_jobs"]
+NOTEBOOKS = ["01_construcao_base", "02_eda_territorio", "03_modelos_validacao", "04_explicabilidade_jobs",
+             "05_eda_clima"]
 pasta = Path(__file__).parent / "notebooks"
 
 for nb in NOTEBOOKS:

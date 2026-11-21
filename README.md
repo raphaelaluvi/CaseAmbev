@@ -38,6 +38,7 @@ Open-Meteo (previsão do dia) ─> gatilho de regra "chuva prevista" (R3)
 | `notebooks/02_eda_territorio` | EDA, matriz de oportunidade, features territoriais |
 | `notebooks/03_modelos_validacao` | Baseline, Logística, LightGBM, ablação, validação por região, calibração, teste |
 | `notebooks/04_explicabilidade_jobs` | SHAP, clusters (jobs), métricas de Guaraná, mapa por UF, Decision Engine |
+| `notebooks/05_eda_clima` | Evidência complementar: efeito da chuva no delivery de comida (Delivery Center 2021 + Open-Meteo + BrasilAPI) |
 | `src/` | Leitura da POF, coleta externa, features, explicação, Decision Engine, serviço de inferência |
 | `api/main.py` | API FastAPI |
 | `web/` | Site React + Vite |
@@ -56,11 +57,15 @@ py -m venv .venv
    ```bash
    .venv\Scripts\python -m src.coleta_externa
    ```
-3. Rode os notebooks em ordem:
+3. Para o notebook 05: baixe o dataset **Brazilian Delivery Center** no Kaggle (`nosbielcs/brazilian-delivery-center`), extraia os `.csv` em `data/raw/delivery_center/` e colete clima e feriados:
+   ```bash
+   .venv\Scripts\python -m src.coleta_clima
+   ```
+4. Rode os notebooks em ordem:
    ```bash
    .venv\Scripts\python rodar_pipeline.py
    ```
-4. Testes:
+5. Testes:
    ```bash
    .venv\Scripts\python -m pytest -q
    ```

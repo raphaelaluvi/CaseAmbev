@@ -1,0 +1,48 @@
+{
+  "modelo": "LightGBM (sklearn Pipeline)",
+  "versao": "1.0.0",
+  "target": "y_pizza — ocasião de consumo com pizza (POF 2017-2018)",
+  "unidade": "pessoa × dia × refeição",
+  "features_categoricas": [
+    "dia_semana",
+    "periodo",
+    "dia_periodo",
+    "refeicao",
+    "local",
+    "sexo",
+    "regiao"
+  ],
+  "features_numericas": [
+    "hora",
+    "fim_de_semana",
+    "em_casa",
+    "idade",
+    "anos_estudo",
+    "log_renda_pc",
+    "n_moradores",
+    "n_criancas",
+    "n_adolescentes",
+    "tem_crianca",
+    "urbano",
+    "pizzarias_100k",
+    "renda_media_pc_uf",
+    "log_populacao_uf"
+  ],
+  "taxa_base": 0.004891015417331207,
+  "limiar_alta": 0.008823839125901616,
+  "validacao": "5 dobras agrupadas por domicílio + teste de 20% dos domicílios + deixa-uma-região-fora",
+  "metricas_teste": {
+    "PR-AUC": 0.0837,
+    "ROC-AUC": 0.8863,
+    "lift_top10": 6.8191,
+    "recall_top10": 0.6819,
+    "brier": 0.0051
+  },
+  "metricas_teste_baseline": {
+    "PR-AUC": 0.019,
+    "ROC-AUC": 0.806,
+    "lift_top10": 4.016,
+    "recall_top10": 0.4016,
+    "brier": 0.0052
+  }
+}

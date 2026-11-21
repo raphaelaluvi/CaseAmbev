@@ -31,7 +31,7 @@ export type Predicao = {
   lift: number;
   classification: "alta" | "media" | "baixa";
   top_factors: Fator[];
-  job: { nome: string; ocasioes?: number; attach_refri?: number; share_guarana?: number };
+  job: { nome: string; ocasioes?: number; attach_refri?: number; share_guarana?: number } | null;
   segmento: {
     regiao: string;
     classe_renda: string;

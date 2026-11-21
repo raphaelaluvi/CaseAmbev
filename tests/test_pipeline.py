@@ -65,6 +65,42 @@ def test_regras_secundarias_viram_complementares():
     assert {a["categoria"] for a in out["acoes_complementares"]} == {"COMBO_CASA", "AWARENESS_ASSOCIACAO"}
 
 
+# ------------------------------------------------------------------ casos limite
+def test_classificacao_nos_limites():
+    from src.decision_engine import classificar
+    taxa, limiar = 0.005, 0.009
+    assert classificar(0.009, taxa, limiar) == "alta"      # exatamente no limiar -> alta
+    assert classificar(0.00899, taxa, limiar) == "media"
+    assert classificar(0.005, taxa, limiar) == "media"     # exatamente na taxa base -> media
+    assert classificar(0.00499, taxa, limiar) == "baixa"
+    assert classificar(0.0, taxa, limiar) == "baixa"
+
+
+def test_segmento_igual_ao_brasil_nao_dispara_combo_nem_awareness():
+    # "abaixo da média" é estrito: igual ao Brasil não conta como lacuna
+    out = decidir(entrada(classificacao="media", attach_refri_segmento=0.33, share_guarana_segmento=0.29))
+    assert out["rule_fired"] == "R6"
+
+
+def test_chuva_desconhecida_nao_ativa_delivery_no_meio_da_semana():
+    out = decidir(entrada(fim_de_semana=False, chuva_prevista=None))
+    assert out["rule_fired"] != "R3"
+
+
+def test_media_em_casa_fim_de_semana_nao_e_delivery():
+    # R3 exige score ALTO
+    out = decidir(entrada(classificacao="media"))
+    assert out["rule_fired"] != "R3"
+
+
+def test_justificativa_sempre_presente_e_sem_promessa_de_venda():
+    for kw in [dict(classificacao="baixa", lift=0.2), dict(em_casa=False), dict(), dict(classificacao="media")]:
+        out = decidir(entrada(**kw))
+        assert out["recommendation_reason"]
+        texto = out["recommendation_reason"].lower()
+        assert "vai vender" not in texto and "garante" not in texto and "aumenta as vendas" not in texto
+
+
 # ------------------------------------------------------------------ API
 artefatos = [ROOT / "models" / "occasion_model.joblib", ROOT / "data" / "external" / "territorio_uf.csv"]
 

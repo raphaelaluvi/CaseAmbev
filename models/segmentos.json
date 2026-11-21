@@ -1,0 +1,573 @@
+{
+  "brasil": {
+    "attach_refri": 0.3701527614571093,
+    "share_guarana": 0.2920634920634921
+  },
+  "segmentos": [
+    {
+      "regiao": "Centro-Oeste",
+      "classe_renda": "E",
+      "n_pizza": 5,
+      "n_pizza_refri": 1,
+      "attach_refri": 0.33612220916568747,
+      "share_guarana": 0.2781557067271353
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "classe_renda": "D",
+      "n_pizza": 23,
+      "n_pizza_refri": 5,
+      "attach_refri": 0.28844314486377176,
+      "share_guarana": 0.3136507936507937
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "classe_renda": "C",
+      "n_pizza": 51,
+      "n_pizza_refri": 20,
+      "attach_refri": 0.3859585243541153,
+      "share_guarana": 0.37103174603174605
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "classe_renda": "B",
+      "n_pizza": 67,
+      "n_pizza_refri": 21,
+      "attach_refri": 0.32647189918554237,
+      "share_guarana": 0.2888114595431669
+    },
+    {
+      "regiao": "Centro-Oeste",
+      "classe_renda": "A",
+      "n_pizza": 113,
+      "n_pizza_refri": 34,
+      "attach_refri": 0.3113011671364074,
+      "share_guarana": 0.27483833039388594
+    },
+    {
+      "regiao": "Nordeste",
+      "classe_renda": "E",
+      "n_pizza": 68,
+      "n_pizza_refri": 40,
+      "attach_refri": 0.538671082149343,
+      "share_guarana": 0.2306878306878307
+    },
+    {
+      "regiao": "Nordeste",
+      "classe_renda": "D",
+      "n_pizza": 57,
+      "n_pizza_refri": 32,
+      "attach_refri": 0.5117279899888595,
+      "share_guarana": 0.24694749694749696
+    },
+    {
+      "regiao": "Nordeste",
+      "classe_renda": "C",
+      "n_pizza": 126,
+      "n_pizza_refri": 59,
+      "attach_refri": 0.45481544677494645,
+      "share_guarana": 0.3903958207755676
+    },
+    {
+      "regiao": "Nordeste",
+      "classe_renda": "B",
+      "n_pizza": 91,
+      "n_pizza_refri": 59,
+      "attach_refri": 0.5982257227850647,
+      "share_guarana": 0.3271046815350613
+    },
+    {
+      "regiao": "Nordeste",
+      "classe_renda": "A",
+      "n_pizza": 126,
+      "n_pizza_refri": 52,
+      "attach_refri": 0.40687024129549443,
+      "share_guarana": 0.20612874779541446
+    },
+    {
+      "regiao": "Norte",
+      "classe_renda": "E",
+      "n_pizza": 42,
+      "n_pizza_refri": 18,
+      "attach_refri": 0.40972669724422883,
+      "share_guarana": 0.285296574770259
+    },
+    {
+      "regiao": "Norte",
+      "classe_renda": "D",
+      "n_pizza": 34,
+      "n_pizza_refri": 19,
+      "attach_refri": 0.4889454672063368,
+      "share_guarana": 0.277981277981278
+    },
+    {
+      "regiao": "Norte",
+      "classe_renda": "C",
+      "n_pizza": 41,
+      "n_pizza_refri": 22,
+      "attach_refri": 0.4820172988383965,
+      "share_guarana": 0.3295540438397581
+    },
+    {
+      "regiao": "Norte",
+      "classe_renda": "B",
+      "n_pizza": 34,
+      "n_pizza_refri": 11,
+      "attach_refri": 0.3407973190581886,
+      "share_guarana": 0.18842805939580134
+    },
+    {
+      "regiao": "Norte",
+      "classe_renda": "A",
+      "n_pizza": 44,
+      "n_pizza_refri": 11,
+      "attach_refri": 0.28754773795534666,
+      "share_guarana": 0.25294418842805944
+    },
+    {
+      "regiao": "Sudeste",
+      "classe_renda": "E",
+      "n_pizza": 11,
+      "n_pizza_refri": 3,
+      "attach_refri": 0.3355824267465221,
+      "share_guarana": 0.2974465148378192
+    },
+    {
+      "regiao": "Sudeste",
+      "classe_renda": "D",
+      "n_pizza": 37,
+      "n_pizza_refri": 15,
+      "attach_refri": 0.3930360566516173,
+      "share_guarana": 0.30975056689342406
+    },
+    {
+      "regiao": "Sudeste",
+      "classe_renda": "C",
+      "n_pizza": 84,
+      "n_pizza_refri": 24,
+      "attach_refri": 0.3019524541263672,
+      "share_guarana": 0.4282106782106782
+    },
+    {
+      "regiao": "Sudeste",
+      "classe_renda": "B",
+      "n_pizza": 99,
+      "n_pizza_refri": 29,
+      "attach_refri": 0.3059080271356486,
+      "share_guarana": 0.3845157110463233
+    },
+    {
+      "regiao": "Sudeste",
+      "classe_renda": "A",
+      "n_pizza": 209,
+      "n_pizza_refri": 46,
+      "attach_refri": 0.23320111453773879,
+      "share_guarana": 0.22486772486772488
+    },
+    {
+      "regiao": "Sul",
+      "classe_renda": "E",
+      "n_pizza": 9,
+      "n_pizza_refri": 3,
+      "attach_refri": 0.3587260423842133,
+      "share_guarana": 0.34092477570738444
+    },
+    {
+      "regiao": "Sul",
+      "classe_renda": "D",
+      "n_pizza": 35,
+      "n_pizza_refri": 8,
+      "attach_refri": 0.280055549620767,
+      "share_guarana": 0.35147392290249435
+    },
+    {
+      "regiao": "Sul",
+      "classe_renda": "C",
+      "n_pizza": 45,
+      "n_pizza_refri": 23,
+      "attach_refri": 0.4677393112175721,
+      "share_guarana": 0.3684016242155777
+    },
+    {
+      "regiao": "Sul",
+      "classe_renda": "B",
+      "n_pizza": 86,
+      "n_pizza_refri": 33,
+      "attach_refri": 0.3811608983881338,
+      "share_guarana": 0.18568433662773287
+    },
+    {
+      "regiao": "Sul",
+      "classe_renda": "A",
+      "n_pizza": 164,
+      "n_pizza_refri": 42,
+      "attach_refri": 0.2684948653757727,
+      "share_guarana": 0.2232462877624168
+    }
+  ],
+  "jobs": [
+    {
+      "cluster": 0,
+      "job": "Noite de fim de semana em casa (adultos)",
+      "ocasioes": 370,
+      "attach_refri": 0.3783783783783784,
+      "share_guarana": 0.24285714285714285
+    },
+    {
+      "cluster": 1,
+      "job": "Pizza fora de casa (social)",
+      "ocasioes": 231,
+      "attach_refri": 0.4025974025974026,
+      "share_guarana": 0.1935483870967742
+    },
+    {
+      "cluster": 2,
+      "job": "Pizza no lanche / refeição do dia",
+      "ocasioes": 136,
+      "attach_refri": 0.17647058823529413,
+      "share_guarana": 0.3333333333333333
+    },
+    {
+      "cluster": 3,
+      "job": "Jantar em família com crianças",
+      "ocasioes": 469,
+      "attach_refri": 0.3880597014925373,
+      "share_guarana": 0.38461538461538464
+    },
+    {
+      "cluster": 4,
+      "job": "Pizza em casa no meio da semana (adultos)",
+      "ocasioes": 283,
+      "attach_refri": 0.2826855123674912,
+      "share_guarana": 0.2
+    },
+    {
+      "cluster": 5,
+      "job": "Pizza fora com a família",
+      "ocasioes": 212,
+      "attach_refri": 0.5235849056603774,
+      "share_guarana": 0.34234234234234234
+    }
+  ],
+  "ufs": [
+    {
+      "uf": "43",
+      "sigla": "RS",
+      "regiao": "Sul",
+      "lift_medio": 2.057482007225716,
+      "pizzarias_100k": 3.2216480627524087,
+      "share_guarana_regiao": 0.2623354251261228,
+      "potencial": 2.290637566768743,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 1
+    },
+    {
+      "uf": "53",
+      "sigla": "DF",
+      "regiao": "Centro-Oeste",
+      "lift_medio": 2.457145449431679,
+      "pizzarias_100k": 6.387192267597808,
+      "share_guarana_regiao": 0.3152600974383153,
+      "potencial": 2.2763505001115814,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 2
+    },
+    {
+      "uf": "42",
+      "sigla": "SC",
+      "regiao": "Sul",
+      "lift_medio": 1.6522724068363948,
+      "pizzarias_100k": 4.791184898185201,
+      "share_guarana_regiao": 0.2623354251261228,
+      "potencial": 1.8395092799563169,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 3
+    },
+    {
+      "uf": "41",
+      "sigla": "PR",
+      "regiao": "Sul",
+      "lift_medio": 1.5832141492974727,
+      "pizzarias_100k": 2.634607981346623,
+      "share_guarana_regiao": 0.2623354251261228,
+      "potencial": 1.7626252836643912,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 4
+    },
+    {
+      "uf": "14",
+      "sigla": "RR",
+      "regiao": "Norte",
+      "lift_medio": 1.4504703626507645,
+      "pizzarias_100k": 5.550082557478043,
+      "share_guarana_regiao": 0.2558541568442559,
+      "potencial": 1.6557457751536735,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 5
+    },
+    {
+      "uf": "35",
+      "sigla": "SP",
+      "regiao": "Sudeste",
+      "lift_medio": 1.5626022516872033,
+      "pizzarias_100k": 2.810781525505998,
+      "share_guarana_regiao": 0.3419070791333565,
+      "potencial": 1.3348043903941385,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 6
+    },
+    {
+      "uf": "50",
+      "sigla": "MS",
+      "regiao": "Centro-Oeste",
+      "lift_medio": 1.4210356122695351,
+      "pizzarias_100k": 1.2008633115516136,
+      "share_guarana_regiao": 0.3152600974383153,
+      "potencial": 1.3164768603398325,
+      "canal_sugerido": "Combo para casa (varejo)",
+      "ranking": 7
+    },
+    {
+      "uf": "52",
+      "sigla": "GO",
+      "regiao": "Centro-Oeste",
+      "lift_medio": 1.3976212947189728,
+      "pizzarias_100k": 1.0402878938952582,
+      "share_guarana_regiao": 0.3152600974383153,
+      "potencial": 1.29478535099987,
+      "canal_sugerido": "Combo para casa (varejo)",
+      "ranking": 8
+    },
+    {
+      "uf": "16",
+      "sigla": "AP",
+      "regiao": "Norte",
+      "lift_medio": 1.1212415330528904,
+      "pizzarias_100k": 2.1699976130026255,
+      "share_guarana_regiao": 0.2558541568442559,
+      "potencial": 1.2799233814652895,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 9
+    },
+    {
+      "uf": "33",
+      "sigla": "RJ",
+      "regiao": "Sudeste",
+      "lift_medio": 1.4702451389515077,
+      "pizzarias_100k": 2.4300755945818056,
+      "share_guarana_regiao": 0.3419070791333565,
+      "potencial": 1.2559111983290279,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 10
+    },
+    {
+      "uf": "11",
+      "sigla": "RO",
+      "regiao": "Norte",
+      "lift_medio": 1.0836604575506454,
+      "pizzarias_100k": 0.9103379686604776,
+      "share_guarana_regiao": 0.2558541568442559,
+      "potencial": 1.2370237065799259,
+      "canal_sugerido": "Combo para casa (varejo)",
+      "ranking": 11
+    },
+    {
+      "uf": "12",
+      "sigla": "AC",
+      "regiao": "Norte",
+      "lift_medio": 1.0105956703797183,
+      "pizzarias_100k": 0.46015886984981563,
+      "share_guarana_regiao": 0.2558541568442559,
+      "potencial": 1.1536185465808775,
+      "canal_sugerido": "Combo para casa (varejo)",
+      "ranking": 12
+    },
+    {
+      "uf": "23",
+      "sigla": "CE",
+      "regiao": "Nordeste",
+      "lift_medio": 0.9988057432009129,
+      "pizzarias_100k": 2.534254024147474,
+      "share_guarana_regiao": 0.28565370168423604,
+      "potencial": 1.0212179696337138,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 13
+    },
+    {
+      "uf": "51",
+      "sigla": "MT",
+      "regiao": "Centro-Oeste",
+      "lift_medio": 1.0731675841455395,
+      "pizzarias_100k": 1.743173586968964,
+      "share_guarana_regiao": 0.3152600974383153,
+      "potencial": 0.9942047050728168,
+      "canal_sugerido": "Combo para casa (varejo)",
+      "ranking": 14
+    },
+    {
+      "uf": "29",
+      "sigla": "BA",
+      "regiao": "Nordeste",
+      "lift_medio": 0.9570483222277857,
+      "pizzarias_100k": 2.389854540895778,
+      "share_guarana_regiao": 0.28565370168423604,
+      "potencial": 0.9785235528728969,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 15
+    },
+    {
+      "uf": "24",
+      "sigla": "RN",
+      "regiao": "Nordeste",
+      "lift_medio": 0.8854188034331436,
+      "pizzarias_100k": 3.5354885441548025,
+      "share_guarana_regiao": 0.28565370168423604,
+      "potencial": 0.9052867375589605,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 16
+    },
+    {
+      "uf": "31",
+      "sigla": "MG",
+      "regiao": "Sudeste",
+      "lift_medio": 1.0132767402792526,
+      "pizzarias_100k": 1.5778971212977995,
+      "share_guarana_regiao": 0.3419070791333565,
+      "potencial": 0.865560151438814,
+      "canal_sugerido": "Combo para casa (varejo)",
+      "ranking": 17
+    },
+    {
+      "uf": "15",
+      "sigla": "PA",
+      "regiao": "Norte",
+      "lift_medio": 0.7189133623374615,
+      "pizzarias_100k": 1.1276212348462682,
+      "share_guarana_regiao": 0.2558541568442559,
+      "potencial": 0.8206563836412398,
+      "canal_sugerido": "Combo para casa (varejo)",
+      "ranking": 18
+    },
+    {
+      "uf": "28",
+      "sigla": "SE",
+      "regiao": "Nordeste",
+      "lift_medio": 0.7711940796875422,
+      "pizzarias_100k": 2.8968866369252972,
+      "share_guarana_regiao": 0.28565370168423604,
+      "potencial": 0.7884989224512626,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 19
+    },
+    {
+      "uf": "26",
+      "sigla": "PE",
+      "regiao": "Nordeste",
+      "lift_medio": 0.7489010642082496,
+      "pizzarias_100k": 1.4110767842697371,
+      "share_guarana_regiao": 0.28565370168423604,
+      "potencial": 0.7657056734538982,
+      "canal_sugerido": "Combo para casa (varejo)",
+      "ranking": 20
+    },
+    {
+      "uf": "17",
+      "sigla": "TO",
+      "regiao": "Norte",
+      "lift_medio": 0.6654271449834138,
+      "pizzarias_100k": 0.9644881879131626,
+      "share_guarana_regiao": 0.2558541568442559,
+      "potencial": 0.7596006180818036,
+      "canal_sugerido": "Combo para casa (varejo)",
+      "ranking": 21
+    },
+    {
+      "uf": "13",
+      "sigla": "AM",
+      "regiao": "Norte",
+      "lift_medio": 0.6626316390173919,
+      "pizzarias_100k": 1.1027760303542777,
+      "share_guarana_regiao": 0.2558541568442559,
+      "potencial": 0.7564094827702217,
+      "canal_sugerido": "Combo para casa (varejo)",
+      "ranking": 22
+    },
+    {
+      "uf": "32",
+      "sigla": "ES",
+      "regiao": "Sudeste",
+      "lift_medio": 0.8110547579129348,
+      "pizzarias_100k": 3.0712004970310054,
+      "share_guarana_regiao": 0.3419070791333565,
+      "potencial": 0.6928183103174945,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 23
+    },
+    {
+      "uf": "22",
+      "sigla": "PI",
+      "regiao": "Nordeste",
+      "lift_medio": 0.5791932341515715,
+      "pizzarias_100k": 3.6146080401748364,
+      "share_guarana_regiao": 0.28565370168423604,
+      "potencial": 0.592189765259363,
+      "canal_sugerido": "Delivery / ponto de consumo",
+      "ranking": 24
+    },
+    {
+      "uf": "25",
+      "sigla": "PB",
+      "regiao": "Nordeste",
+      "lift_medio": 0.5643928952088658,
+      "pizzarias_100k": 1.5763809096768768,
+      "share_guarana_regiao": 0.28565370168423604,
+      "potencial": 0.577057321150138,
+      "canal_sugerido": "Combo para casa (varejo)",
+      "ranking": 25
+    },
+    {
+      "uf": "21",
+      "sigla": "MA",
+      "regiao": "Nordeste",
+      "lift_medio": 0.5185795296545099,
+      "pizzarias_100k": 1.2650931655829272,
+      "share_guarana_regiao": 0.28565370168423604,
+      "potencial": 0.5302159483687087,
+      "canal_sugerido": "Combo para casa (varejo)",
+      "ranking": 26
+    },
+    {
+      "uf": "27",
+      "sigla": "AL",
+      "regiao": "Nordeste",
+      "lift_medio": 0.46250003591233896,
+      "pizzarias_100k": 1.2639866137798617,
+      "share_guarana_regiao": 0.28565370168423604,
+      "potencial": 0.4728780854986646,
+      "canal_sugerido": "Combo para casa (varejo)",
+      "ranking": 27
+    }
+  ],
+  "classe_renda_limites": {
+    "E": [
+      -1489.27,
+      537.0687037037
+    ],
+    "D": [
+      537.1370833333,
+      853.2147916667
+    ],
+    "C": [
+      853.3183333333,
+      1250.8758333333
+    ],
+    "B": [
+      1250.9408333333,
+      1943.46625
+    ],
+    "A": [
+      1943.5433333333,
+      75345.925
+    ]
+  }
+}

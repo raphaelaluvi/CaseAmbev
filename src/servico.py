@@ -12,7 +12,7 @@ import joblib
 import numpy as np
 import pandas as pd
 
-from src.decision_engine import Entrada, decidir
+from src.decision_engine import Entrada, classificar, decidir
 from src.explicar import Explicador
 from src.features import derivar
 
@@ -68,10 +68,12 @@ class Servico:
         X = self.montar_linha(ctx)
         p = float(self.modelo.predict_proba(X)[:, 1][0])
         taxa_base, limiar = self.meta["taxa_base"], self.meta["limiar_alta"]
-        classe = "alta" if p >= limiar else ("media" if p >= taxa_base else "baixa")
+        classe = classificar(p, taxa_base, limiar)
         fatores = self.explicador.top_fatores(X, n=4)
 
-        job = self.nomes_job[int(self.kmeans.predict(X[self.vars_job])[0])]
+        # os jobs vêm de clusters de ocasiões COM pizza: só fazem sentido se a pizza é provável
+        job = (self.nomes_job[int(self.kmeans.predict(X[self.vars_job])[0])]
+               if classe != "baixa" else None)
         r = X.iloc[0]
         classe_renda = self.classe_renda(float(ctx["renda_pc"]))
         s = self.seg_idx.get((r["regiao"], classe_renda), {})
@@ -92,7 +94,8 @@ class Servico:
             "lift": round(p / taxa_base, 2),
             "classification": classe,
             "top_factors": fatores,
-            "job": {"nome": job, **{k: v for k, v in self.jobs_idx.get(job, {}).items() if k != "job"}},
+            "job": ({"nome": job, **{k: v for k, v in self.jobs_idx.get(job, {}).items() if k != "job"}}
+                    if job else None),
             "segmento": {
                 "regiao": r["regiao"], "classe_renda": classe_renda,
                 "attach_refri": entrada.attach_refri_segmento,

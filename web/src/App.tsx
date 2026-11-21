@@ -264,8 +264,9 @@ function Resultado({ r }: { r: Predicao }) {
       <div className="grade-2">
         <div className="cartao">
           <span className="rotulo">Job provável</span>
-          <h3>{r.job.nome}</h3>
-          {r.job.share_guarana !== undefined && (
+          {!r.job && <p className="mudo">Não se aplica: a ocasião de pizza é pouco provável neste contexto.</p>}
+          {r.job && <h3>{r.job.nome}</h3>}
+          {r.job?.share_guarana !== undefined && (
             <p className="mudo">Neste job, o guaraná é {pct(r.job.share_guarana)} dos refrigerantes da pizza.</p>
           )}
         </div>

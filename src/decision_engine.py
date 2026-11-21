@@ -30,6 +30,15 @@ CATEGORIAS = {
 }
 
 
+def classificar(score: float, taxa_base: float, limiar_alta: float) -> str:
+    """alta: score >= limiar do top 10% | media: score >= taxa base | baixa: abaixo da média Brasil."""
+    if score >= limiar_alta:
+        return "alta"
+    if score >= taxa_base:
+        return "media"
+    return "baixa"
+
+
 @dataclass
 class Entrada:
     occasion_score: float

@@ -21,6 +21,7 @@ def test_derivacoes():
     df = pd.DataFrame([{"dia_semana": "Sabado", "hora": 20, "local": "casa", "renda_pc": 1000.0, "n_criancas": 2}])
     d = derivar(df).iloc[0]
     assert d.periodo == "noite" and d.fim_de_semana == 1 and d.em_casa == 1 and d.tem_crianca == 1
+    assert d.dia_periodo == "Sabado|noite"
     assert periodo(3) == "madrugada" and periodo(12) == "almoco"
 
 

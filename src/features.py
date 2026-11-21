@@ -12,7 +12,9 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 # ---------------------------------------------------------------- famílias
-CONTEXTO_CAT = ["dia_semana", "periodo", "refeicao", "local"]
+# dia_periodo = interação explícita dia da semana × período (ex.: "Sabado|noite"),
+# sugerida no roadmap; ajuda principalmente a Regressão Logística, que não cria interações sozinha
+CONTEXTO_CAT = ["dia_semana", "periodo", "dia_periodo", "refeicao", "local"]
 CONTEXTO_NUM = ["hora", "fim_de_semana", "em_casa"]
 PESSOA_CAT = ["sexo"]
 PESSOA_NUM = ["idade", "anos_estudo", "log_renda_pc", "n_moradores", "n_criancas",
@@ -66,6 +68,7 @@ def derivar(df: pd.DataFrame) -> pd.DataFrame:
     """
     df = df.copy()
     df["periodo"] = df["hora"].map(periodo)
+    df["dia_periodo"] = df["dia_semana"] + "|" + df["periodo"]
     df["fim_de_semana"] = df["dia_semana"].isin(["Sexta-Feira", "Sabado", "Domingo"]).astype(int)
     df["em_casa"] = (df["local"] == "casa").astype(int)
     df["tem_crianca"] = (df["n_criancas"] > 0).astype(int)

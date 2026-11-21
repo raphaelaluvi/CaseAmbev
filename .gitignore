@@ -7,3 +7,4 @@ data/processed/*.parquet
 node_modules/
 web/dist/
 .env
+.claude/

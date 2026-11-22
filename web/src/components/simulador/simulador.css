@@ -1,0 +1,52 @@
+/* ---------- grade: formulário à esquerda, resultado à direita */
+.grade-simulador { display: grid; grid-template-columns: minmax(300px, 380px) 1fr; gap: 20px; align-items: start; }
+@media (max-width: 860px) { .grade-simulador { grid-template-columns: 1fr; } }
+.resultado { display: grid; gap: 16px; }
+
+/* ---------- formulário */
+.formulario { display: grid; gap: 14px; position: sticky; top: 70px; }
+.formulario h2 { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; }
+fieldset { border: none; border-top: 1px solid var(--borda); margin: 0; padding: 12px 0 0; display: grid; gap: 10px; }
+legend { font-weight: 800; font-size: .78rem; color: var(--verde-escuro); padding-right: 8px; text-transform: uppercase; letter-spacing: .07em; }
+label { display: grid; gap: 4px; font-size: .85rem; color: var(--texto-2); font-weight: 600; }
+.linha { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.linha.tres { grid-template-columns: 1fr 1fr 1fr; }
+select, input[type="number"] {
+  font: inherit; font-weight: 500; color: var(--texto); background: var(--fundo); border: 1px solid var(--borda);
+  border-radius: 10px; padding: 9px 10px; width: 100%;
+}
+input[type="range"] { accent-color: var(--verde); width: 100%; }
+.clima { display: grid; gap: 8px; font-size: .84rem; color: var(--texto-2); }
+.erro { border-color: var(--erro); color: var(--erro); }
+
+/* ---------- placar (cartão verde-escuro) */
+.destaque { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: var(--verde-escuro); border-color: var(--verde-escuro); color: #fff; }
+.destaque .rotulo { color: var(--verde-claro); }
+.destaque .mudo { color: rgba(255, 255, 255, .75); }
+.score { display: grid; gap: 4px; }
+.numero { font-size: 2.8rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.05; }
+.selo { justify-self: start; margin-top: 6px; padding: 4px 12px; border-radius: 999px; font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
+.selo.alta { background: var(--verde-claro); color: var(--verde-escuro); }
+.selo.media { background: #fff; color: var(--verde-escuro); }
+.selo.baixa { background: rgba(255, 255, 255, .2); color: #fff; }
+
+/* ---------- recomendação */
+.recomendacao { border-left: 6px solid var(--verde); }
+.recomendacao h3 { font-size: 1.35rem; font-weight: 800; }
+.recomendacao p { margin: 0 0 10px; color: var(--texto-2); }
+.recomendacao ul { margin: 6px 0 0; padding-left: 18px; color: var(--texto-2); font-size: .9rem; }
+
+/* ---------- fatores (SHAP) */
+.fatores { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 10px; }
+.fatores li { display: grid; grid-template-columns: minmax(150px, 1.2fr) 2fr 96px; gap: 10px; align-items: center; font-size: .9rem; }
+.barra.aumenta { background: var(--verde); }
+.barra.reduz { background: var(--reduz); }
+.valor { font-size: .8rem; color: var(--texto-2); text-align: right; font-weight: 700; }
+
+.grade-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 640px) {
+  .grade-2, .destaque { grid-template-columns: 1fr; }
+  .fatores li { grid-template-columns: 1fr; }
+  .valor { text-align: left; }
+  .linha.tres { grid-template-columns: 1fr 1fr; }
+}

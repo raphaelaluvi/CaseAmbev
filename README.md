@@ -75,7 +75,7 @@ Delivery Center 2021 + Open-Meteo histórico + BrasilAPI ─> notebook 05: evid�
 
 ### Guaraná na ocasião (métricas de marca, POF ponderada)
 - **Attach:** 37% das pizzas vêm com refrigerante. **Share:** o guaraná é 29% desses refrigerantes.
-- **Classe A:** maior taxa de pizza e **menor share de guaraná** (~17%) — o oposto do que o TAPI relata nos dados da Ambev (a POF mede a categoria, não a marca, e é de 2017-18).
+- **Faixa de renda mais alta (quintil "A"):** maior taxa de pizza e **menor share de guaraná** (~17%) — o oposto do que o TAPI relata para a Classe A nos dados da Ambev (a POF mede a categoria, não a marca, e é de 2017-18; as faixas são quintis de renda per capita, não o Critério Brasil da ABEP).
 - **Famílias com criança:** share de guaraná ~2× maior que sem criança.
 - **Jobs (K-means, 6 grupos):** "Jantar em família com crianças" tem o maior share (38%); "Pizza fora de casa (social)" (19%) e "Pizza em casa no meio da semana (adultos)" (20%) são onde o Guaraná tem mais espaço → **awareness para ocasiões de adultos**.
 - **Mapa de oportunidade (top 5 UFs):** RS, DF, SC, PR, RR — muita pizza e share de guaraná regional abaixo da média.

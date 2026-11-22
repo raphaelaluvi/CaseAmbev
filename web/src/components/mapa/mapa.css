@@ -1,0 +1,39 @@
+/* ---------- mapa do Brasil */
+.mapa { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(240px, 1fr); gap: 24px; align-items: center; }
+.mapa svg { width: 100%; height: auto; max-height: 560px; }
+.uf { stroke: var(--superficie); stroke-width: 1.2; cursor: pointer; transition: opacity .15s; }
+.uf:hover { opacity: .85; }
+.uf.selecionada { stroke: var(--verde-escuro); stroke-width: 3; }
+.rotulo-uf { font-size: 11px; font-weight: 800; fill: var(--verde-escuro); text-anchor: middle; dominant-baseline: middle; pointer-events: none; }
+.rotulo-uf.claro { fill: #fff; }
+.mapa-lado { display: grid; gap: 20px; }
+.legenda-seq .escala { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; margin-top: 6px; }
+.legenda-seq .escala span { height: 12px; }
+.legenda-seq .escala span:first-child { border-radius: 999px 0 0 999px; }
+.legenda-seq .escala span:last-child { border-radius: 0 999px 999px 0; }
+.escala-txt { display: flex; justify-content: space-between; font-size: .78rem; color: var(--mudo); margin-top: 4px; }
+.ficha-uf { background: var(--verde-escuro); color: #fff; border-radius: var(--canto); padding: 22px 22px; }
+.ficha-uf .rotulo { color: var(--verde-claro); }
+.ficha-uf h3 { color: #fff; }
+.ficha-uf h3 { font-size: 2rem; font-weight: 800; }
+.ficha-uf dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; margin: 10px 0 0; font-size: .9rem; }
+.ficha-uf dt { color: rgba(255, 255, 255, .7); }
+.ficha-uf dd { margin: 0; font-weight: 700; color: #fff; }
+@media (max-width: 760px) { .mapa { grid-template-columns: 1fr; } }
+
+/* ---------- ranking (tabela "ver mais") */
+.detalhes { margin-top: 16px; border-top: 1px solid var(--borda); padding-top: 12px; }
+.detalhes summary { cursor: pointer; font-weight: 700; color: var(--verde-escuro); }
+.tabela-rolagem { overflow-x: auto; margin-top: 12px; }
+.ranking { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.ranking th { text-align: left; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--mudo); font-weight: 700; padding: 8px; border-bottom: 1px solid var(--borda); white-space: nowrap; }
+.ranking td { padding: 8px; border-bottom: 1px solid var(--borda); white-space: nowrap; }
+.ranking tr:hover td { background: var(--fundo); }
+.col-barra { min-width: 200px; }
+.col-barra .trilho { display: inline-block; width: 140px; vertical-align: middle; margin-right: 8px; }
+
+/* botão "Simular X →" dentro da ficha (aparece quando um estado está fixado) */
+.ficha-acao { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.ficha-acao button { background: var(--verde-claro); color: var(--verde-escuro); }
+.ficha-acao button:hover { background: #fff; }
+.ficha-acao span { color: rgba(255, 255, 255, .7); }

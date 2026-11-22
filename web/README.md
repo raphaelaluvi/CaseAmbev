@@ -1,32 +1,64 @@
-# React + TypeScript + Vite
+# Site — Occasion Intelligence (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Rodar (com a API ligada em `localhost:8000`):
+```bash
+npm install
+npm run dev
+```
+Abre em http://localhost:5173.
 
-Currently, two official plugins are available:
+## Onde mexer em quê
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```
+web/
+├── index.html                  título da aba e link da fonte (Manrope, Google Fonts)
+├── public/
+│   └── br_uf.json              malha dos estados do IBGE (desenho do mapa)
+└── src/
+    ├── main.tsx                ponto de entrada (carrega os estilos globais e o App)
+    ├── App.tsx                 A PÁGINA: ordem das seções de cima para baixo
+    │
+    ├── styles/
+    │   ├── tokens.css          ★ CORES, fonte, arredondamento, sombra (troque o tema aqui)
+    │   └── base.css            cartão branco, botões, textos, barras (usados em todo lugar)
+    │
+    ├── secoes/                 cada bloco grande da página (um "ato")
+    │   ├── SecaoMapa.tsx       ato 1: título + mapa + ranking
+    │   ├── SecaoJobs.tsx       ato 2: título + 3 cartões de insight + jobs   ← textos dos insights aqui
+    │   ├── SecaoSimulador.tsx  ato 3: título + formulário + resultado
+    │   └── SecaoComoFunciona.tsx  fluxo, métricas e limitações              ← textos do método aqui
+    │
+    ├── components/             peças menores, cada uma com o seu CSS ao lado
+    │   ├── layout/             BarraTopo (menu), Hero (faixa azul + números), Rodape
+    │   ├── comum/              CabecalhoSecao (número + título), Comparacao (barra × Brasil), Insight
+    │   ├── mapa/               MapaBrasil (mapa clicável), RankingUF (tabela)
+    │   ├── jobs/               ListaJobs (cartões dos jobs)
+    │   ├── simulador/          FormularioContexto (campos), Resultado (score, recomendação, SHAP, job)
+    │   └── metodo/             Metricas (números do modelo)
+    │
+    ├── hooks/
+    │   └── useSimulador.ts     o "estado" da página: contexto escolhido, resposta da API, clima
+    ├── services/
+    │   └── api.ts              chamadas à API (/predict, /clima, /oportunidades) e os tipos dos dados
+    └── utils/
+        ├── constantes.ts       opções dos campos (dias, refeições, locais, UFs) e o contexto padrão
+        └── formatar.ts         formatação de % e datas
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Exemplos rápidos
+| Quero… | Arquivo |
+|---|---|
+| trocar uma cor do site | `src/styles/tokens.css` |
+| mudar o título grande ou os 4 números do topo | `src/components/layout/Hero.tsx` |
+| mudar o texto do menu | `src/components/layout/BarraTopo.tsx` |
+| mudar a ordem das seções ou tirar uma | `src/App.tsx` |
+| editar os cartões de insight | `src/secoes/SecaoJobs.tsx` |
+| mudar o visual do mapa | `src/components/mapa/mapa.css` (cores: `--seq-1` a `--seq-5` em `tokens.css`) |
+| mudar campos do formulário | `src/components/simulador/FormularioContexto.tsx` (opções em `utils/constantes.ts`) |
+| mudar o cartão da recomendação ou do score | `src/components/simulador/Resultado.tsx` |
+| mudar o contexto que aparece ao abrir | `CONTEXTO_PADRAO` em `src/utils/constantes.ts` |
+
+### Regra de organização
+- **Seção** (`secoes/`) = um bloco grande da página, monta componentes e escreve os textos daquele bloco.
+- **Componente** (`components/`) = uma peça reutilizável; recebe dados por *props* e não chama a API.
+- Só o **hook** `useSimulador` guarda estado e chama a API (via `services/api.ts`).

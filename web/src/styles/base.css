@@ -1,0 +1,40 @@
+/* Estilos-base usados no site todo. As CORES ficam em tokens.css. */
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body { margin: 0; background: var(--fundo); }
+h1, h2, h3 { margin: 0; line-height: 1.15; color: var(--verde-escuro); }
+a { color: var(--verde-escuro); }
+:focus-visible { outline: 3px solid var(--verde); outline-offset: 2px; }
+
+/* largura máxima e espaço entre as seções */
+.pagina { max-width: 1200px; margin: 0 auto; padding: 8px 16px 64px; display: grid; gap: 56px; }
+.secao { display: grid; gap: 18px; padding-top: 32px; }
+
+/* textos */
+.sobretitulo { margin: 0 0 8px; text-transform: uppercase; letter-spacing: .1em; font-size: .75rem; font-weight: 800; color: var(--verde); }
+.sub { color: var(--texto-2); margin: 6px 0 0; max-width: 75ch; }
+.rotulo { display: block; font-size: .72rem; text-transform: uppercase; letter-spacing: .07em; color: var(--mudo); font-weight: 700; }
+.mudo { color: var(--mudo); }
+.pequeno { font-size: .82rem; }
+.num { font-variant-numeric: tabular-nums; }
+.dica { margin: 10px 0 0; }
+
+/* cartão branco — cantos em diagonal, como os cards da página do Guaraná */
+.cartao { background: var(--superficie); border: 1px solid var(--borda); border-radius: var(--canto); padding: 20px; box-shadow: var(--sombra); }
+.cartao h3 { font-size: 1.1rem; margin: 4px 0 6px; }
+
+/* botões em pílula */
+button {
+  font: inherit; font-weight: 800; border: none; border-radius: 999px; padding: 12px 20px;
+  background: var(--verde-escuro); color: #fff; cursor: pointer; letter-spacing: .02em; text-transform: uppercase; font-size: .85rem;
+}
+button:hover { background: var(--verde); }
+button:disabled { opacity: .6; cursor: wait; }
+button.secundario { background: transparent; color: var(--verde-escuro); border: 2px solid var(--verde-escuro); padding: 8px 14px; font-size: .78rem; }
+button.secundario:hover { background: var(--verde-suave); }
+
+/* barras de progresso */
+.trilho { display: block; position: relative; height: 10px; background: var(--trilho); border-radius: 999px; }
+.barra { display: block; height: 100%; border-radius: 999px; background: var(--verde); }
+.marca-br { position: absolute; top: -4px; width: 3px; height: 18px; border-radius: 2px; background: var(--verde-escuro); }

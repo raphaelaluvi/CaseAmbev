@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api, type Clima, type Contexto, type Oportunidades, type Predicao } from "../services/api";
 import { CONTEXTO_PADRAO } from "../utils/constantes";
 
@@ -20,24 +20,34 @@ export function useSimulador() {
   const mudarUf = (uf: string) => { set("uf", uf); limparClima(); };
   const mudarDia = (dia: string) => { set("dia_semana", dia); limparClima(); };
 
-  async function prever(c: Contexto = ctx) {
+  // contador para descartar respostas antigas quando o usuário muda o contexto rápido
+  const pedido = useRef(0);
+
+  async function prever(c: Contexto) {
+    const n = ++pedido.current;
     setCarregando(true);
     setErro(null);
     try {
-      setRes(await api.predict(c));
+      const r = await api.predict(c);
+      if (n === pedido.current) setRes(r);
     } catch (e) {
-      setErro(`Não foi possível falar com a API (${String(e)}). Ela está rodando em localhost:8000?`);
+      if (n === pedido.current) setErro(`Não foi possível falar com a API (${String(e)}). Ela está rodando em localhost:8000?`);
     } finally {
-      setCarregando(false);
+      if (n === pedido.current) setCarregando(false);
     }
   }
 
-  /** Clique no mapa: leva o estado ao simulador, recalcula e rola até a seção 3. */
+  // recalcula sozinho 350 ms depois de qualquer mudança no formulário
+  useEffect(() => {
+    const t = setTimeout(() => prever(ctx), 350);
+    return () => clearTimeout(t);
+  }, [ctx]);
+
+  useEffect(() => { api.oportunidades().then(setOpo).catch(() => undefined); }, []);
+
+  /** Clique no mapa: leva o estado ao simulador e rola até a seção 3. */
   function selecionarUfNoMapa(uf: string) {
-    const novo = { ...ctx, uf, chuva_prevista: null };
-    setCtx(novo);
-    setClima(null);
-    prever(novo);
+    mudarUf(uf);
     document.getElementById("ato3")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
@@ -45,20 +55,11 @@ export function useSimulador() {
     try {
       const c = await api.clima(ctx.uf, ctx.dia_semana);
       setClima(c);
-      const novo = { ...ctx, chuva_prevista: c.chuva_prevista };
-      setCtx(novo);
-      prever(novo);
+      set("chuva_prevista", c.chuva_prevista);
     } catch (e) {
       setErro(`Previsão do tempo indisponível: ${String(e)}`);
     }
   }
 
-  // ao abrir a página: calcula o contexto padrão e carrega mapa + jobs
-  useEffect(() => {
-    prever(CONTEXTO_PADRAO);
-    api.oportunidades().then(setOpo).catch(() => undefined);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return { ctx, res, opo, clima, erro, carregando, set, mudarUf, mudarDia, prever, consultarClima, selecionarUfNoMapa };
+  return { ctx, res, opo, clima, erro, carregando, set, mudarUf, mudarDia, consultarClima, selecionarUfNoMapa };
 }

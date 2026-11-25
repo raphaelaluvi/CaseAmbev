@@ -1,28 +1,25 @@
 import type { Predicao } from "../../services/api";
 import { CLASSE_LABEL } from "../../utils/constantes";
-import { pct } from "../../utils/formatar";
 import Comparacao from "../comum/Comparacao";
+import IconeCanal from "../comum/IconeCanal";
 import "./simulador.css";
 
-/** Tudo o que a API devolve para um contexto: score, recomendação, fatores, job e Guaraná no segmento. */
+/** Resultado enxuto: placar, recomendação, plano de campanha e contexto de Guaraná. */
 export default function Resultado({ r }: { r: Predicao }) {
   return (
     <>
-      <PlacarScore r={r} />
-      <Recomendacao r={r} />
-      <Fatores r={r} />
+      <div className="resultado-topo">
+        <PlacarScore r={r} />
+        <Recomendacao r={r} />
+      </div>
+      {r.briefing && <Briefing r={r} />}
       <div className="grade-2">
         <div className="cartao">
           <span className="rotulo">Job provável</span>
-          {!r.job && <p className="mudo">Não se aplica: a ocasião de pizza é pouco provável neste contexto.</p>}
-          {r.job && <h3>{r.job.nome}</h3>}
-          {r.job?.share_guarana !== undefined && (
-            <p className="mudo">Neste job, o guaraná é {pct(r.job.share_guarana)} dos refrigerantes da pizza.</p>
-          )}
+          {r.job ? <h3>{r.job.nome}</h3> : <p className="mudo">Não se aplica: pizza pouco provável neste contexto.</p>}
         </div>
         <div className="cartao">
-          <span className="rotulo">Guaraná no segmento · {r.segmento.regiao}, faixa de renda {r.segmento.classe_renda} (quintil)</span>
-          <Comparacao nome="Attach de refrigerante" v={r.segmento.attach_refri} br={r.segmento.brasil.attach_refri} />
+          <span className="rotulo">Guaraná no segmento · {r.segmento.regiao}, faixa {r.segmento.classe_renda}</span>
           <Comparacao nome="Share de guaraná" v={r.segmento.share_guarana} br={r.segmento.brasil.share_guarana} />
         </div>
       </div>
@@ -30,60 +27,70 @@ export default function Resultado({ r }: { r: Predicao }) {
   );
 }
 
-/** Cartão azul-marinho com o Occasion Score e o lift. */
+/** Posição (0-100) do marcador no termômetro: baixa < taxa base < média < limiar < alta. */
+function posicao(r: Predicao) {
+  const { taxa_base: t, limiar_alta: l } = r.model_metadata;
+  const s = r.occasion_score;
+  if (s < t) return (s / t) * 33;
+  if (s < l) return 33 + ((s - t) / (l - t)) * 33;
+  return 66 + Math.min((s - l) / l, 1) * 34;
+}
+
 function PlacarScore({ r }: { r: Predicao }) {
   return (
     <div className="cartao destaque">
-      <div className="score">
-        <span className="rotulo">Occasion Score</span>
+      <span className="rotulo">Occasion Score</span>
+      <div className="placar-linha">
         <span className="numero">{r.occasion_score_pct.toFixed(2)}%</span>
-        <span className="mudo">chance de a ocasião ter pizza</span>
-      </div>
-      <div className="score">
-        <span className="rotulo">Lift vs. média Brasil</span>
-        <span className="numero">{r.lift.toFixed(1)}×</span>
         <span className={`selo ${r.classification}`}>{CLASSE_LABEL[r.classification]}</span>
       </div>
+      <div className="termometro" aria-hidden="true">
+        <span className="termo-marca" style={{ left: `${posicao(r)}%` }} />
+      </div>
+      <div className="termo-txt"><span>baixa</span><span>média</span><span>alta</span></div>
+      <span className="mudo pequeno">{r.lift.toFixed(1)}× a média Brasil</span>
     </div>
   );
 }
 
-/** Recomendação do Decision Engine, com a justificativa e as ações complementares. */
 function Recomendacao({ r }: { r: Predicao }) {
   return (
     <div className="cartao recomendacao">
-      <span className="rotulo">Recomendação · regra {r.rule_fired}</span>
-      <h3>{r.recommendation_label}</h3>
-      <p>{r.recommendation_reason}</p>
-      {r.acoes_complementares.length > 0 && (
-        <>
-          <span className="rotulo">Também se aplica</span>
-          <ul>
-            {r.acoes_complementares.map((a) => <li key={a.categoria}><b>{a.label}</b> — {a.motivo}</li>)}
-          </ul>
-        </>
-      )}
+      <div className="reco-cab">
+        {r.briefing && <IconeCanal canal={r.briefing.canal} tamanho={44} />}
+        <div>
+          <span className="rotulo">Recomendação · regra {r.rule_fired}</span>
+          <h3>{r.recommendation_label}</h3>
+        </div>
+      </div>
+      <div className="chips-fatores">
+        {r.top_factors.slice(0, 3).map((f) => (
+          <span key={f.variavel} className={`fator ${f.direcao}`} title={`SHAP ${f.impacto.toFixed(2)}`}>
+            {f.direcao === "aumenta" ? "▲" : "▼"} {f.fator}: {String(f.valor)}
+          </span>
+        ))}
+      </div>
+      <details className="detalhes">
+        <summary>Por quê?</summary>
+        <p>{r.recommendation_reason}</p>
+      </details>
     </div>
   );
 }
 
-/** Os fatores do SHAP que mais empurraram o score para cima ou para baixo. */
-function Fatores({ r }: { r: Predicao }) {
-  const maxImp = Math.max(...r.top_factors.map((f) => Math.abs(f.impacto)), 0.01);
+function Briefing({ r }: { r: Predicao }) {
+  const b = r.briefing!;
   return (
-    <div className="cartao">
-      <span className="rotulo">Principais fatores do score (SHAP)</span>
-      <ul className="fatores">
-        {r.top_factors.map((f) => (
-          <li key={f.variavel} title={`contribuição ${f.impacto.toFixed(3)} (log-odds)`}>
-            <span className="nome">{f.fator} <span className="mudo">= {String(f.valor)}</span></span>
-            <span className="trilho">
-              <span className={`barra ${f.direcao}`} style={{ width: `${(Math.abs(f.impacto) / maxImp) * 100}%` }} />
-            </span>
-            <span className="valor">{f.direcao === "aumenta" ? "▲ aumenta" : "▼ reduz"}</span>
-          </li>
+    <div className="briefing">
+      <div className="briefing-cab"><h3>Plano de campanha</h3><span className="mudo pequeno">{b.aviso}</span></div>
+      <div className="briefing-grade">
+        {b.cartoes.map((c) => (
+          <div key={c.titulo} className="briefing-cartao">
+            <span className="rotulo">{c.titulo}</span>
+            <p>{c.valor}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

@@ -19,3 +19,6 @@
 .insight p { margin: 0; color: rgba(255, 255, 255, .88); font-size: .98rem; line-height: 1.5; }
 .insight-tag { display: inline-block; font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; padding: 4px 12px; border-radius: 999px; background: #fff; color: var(--verde-escuro); }
 .insight.positivo .insight-tag { background: var(--verde-claro); color: var(--verde-escuro); }
+
+/* ícone do canal: a máscara deixa o ícone da cor do texto (currentColor) */
+.icone-canal { display: inline-block; flex: none; background: currentColor; mask-size: contain; mask-repeat: no-repeat; mask-position: center; -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; }

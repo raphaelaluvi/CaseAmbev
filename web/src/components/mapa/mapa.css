@@ -37,3 +37,11 @@
 .ficha-acao button { background: var(--verde-claro); color: var(--verde-escuro); }
 .ficha-acao button:hover { background: #fff; }
 .ficha-acao span { color: rgba(255, 255, 255, .7); }
+
+.mapa-metricas { margin-bottom: 16px; }
+.mapa-rodape { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+.canal-sug { display: flex; align-items: center; gap: 8px; }
+.modal { border: none; border-radius: var(--canto); padding: 24px; width: min(920px, 94vw); max-height: 86vh; background: var(--superficie); color: var(--texto); }
+.modal::backdrop { background: rgba(0, 59, 40, .55); }
+.modal-cab { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.modal-cab h3 { margin: 0; }

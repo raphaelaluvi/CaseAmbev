@@ -38,3 +38,12 @@ button.secundario:hover { background: var(--verde-suave); }
 .trilho { display: block; position: relative; height: 10px; background: var(--trilho); border-radius: 999px; }
 .barra { display: block; height: 100%; border-radius: 999px; background: var(--verde); }
 .marca-br { position: absolute; top: -4px; width: 3px; height: 18px; border-radius: 2px; background: var(--verde-escuro); }
+
+/* chips (botões de escolha): formulário e mapa */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  background: var(--superficie); color: var(--verde-escuro); border: 2px solid var(--borda);
+  padding: 7px 14px; font-size: .8rem; text-transform: none; letter-spacing: 0; font-weight: 700;
+}
+.chip:hover { background: var(--verde-suave); }
+.chip[aria-pressed="true"] { background: var(--verde-escuro); color: #fff; border-color: var(--verde-escuro); }

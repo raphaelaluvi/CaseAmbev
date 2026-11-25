@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import type { UFOportunidade } from "../../services/api";
+import IconeCanal from "../comum/IconeCanal";
 import "./mapa.css";
 
 /** Mapa coroplético do Brasil por UF (malha do IBGE em public/br_uf.json).
@@ -43,6 +44,15 @@ const DESLOCAMENTO: Record<string, [number, number]> = { "53": [16, -2], "52": [
 /** Rampa sequencial de uma cor (claro -> escuro), 5 faixas por quantil. */
 const RAMPA = ["var(--seq-1)", "var(--seq-2)", "var(--seq-3)", "var(--seq-4)", "var(--seq-5)"];
 
+/** Métricas que o mapa pode colorir. */
+const METRICAS = {
+  potencial: { rotulo: "Potencial de ativação", valor: (u: UFOportunidade) => u.potencial },
+  lift: { rotulo: "Ocasião de pizza", valor: (u: UFOportunidade) => u.lift_medio },
+  share: { rotulo: "Share de guaraná", valor: (u: UFOportunidade) => u.share_guarana_regiao },
+  pizzarias: { rotulo: "Pizzarias por 100 mil hab.", valor: (u: UFOportunidade) => u.pizzarias_100k },
+} as const;
+type Metrica = keyof typeof METRICAS;
+
 /** Destaque do estado selecionado: inverte a cor (escuro vira claro e vice-versa). */
 const corInvertida = (faixa: number) => (faixa >= 3 ? "var(--seq-1)" : "var(--seq-5)");
 
@@ -54,6 +64,7 @@ export default function MapaBrasil({ ufs, selecionada, onSelecionar, onSimular }
 }) {
   const [features, setFeatures] = useState<Feature[] | null>(null);
   const [hover, setHover] = useState<string | null>(null);
+  const [metrica, setMetrica] = useState<Metrica>("potencial");
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}br_uf.json`).then((r) => r.json()).then((g) => setFeatures(g.features));
@@ -61,10 +72,11 @@ export default function MapaBrasil({ ufs, selecionada, onSelecionar, onSimular }
 
   const caminhos = useMemo(() => (features ? projetar(features) : []), [features]);
   const porCod = useMemo(() => new Map(ufs.map((u) => [u.uf, u])), [ufs]);
+  const valorDe = METRICAS[metrica].valor;
   const cortes = useMemo(() => {
-    const v = [...ufs.map((u) => u.potencial)].sort((a, b) => a - b);
+    const v = ufs.map(valorDe).sort((a, b) => a - b);
     return [0.2, 0.4, 0.6, 0.8].map((q) => v[Math.floor(q * (v.length - 1))]);
-  }, [ufs]);
+  }, [ufs, metrica]);
   const faixa = (p: number) => cortes.filter((c) => p > c).length;
 
   // com um estado fixado (1º clique), a ficha fica nele; sem estado fixado, a ficha segue o mouse
@@ -73,6 +85,12 @@ export default function MapaBrasil({ ufs, selecionada, onSelecionar, onSimular }
 
   if (!features) return <p className="mudo">Carregando mapa…</p>;
   return (
+    <>
+    <div className="chips mapa-metricas">
+      {(Object.keys(METRICAS) as Metrica[]).map((m) => (
+        <button key={m} type="button" className="chip" aria-pressed={m === metrica} onClick={() => setMetrica(m)}>{METRICAS[m].rotulo}</button>
+      ))}
+    </div>
     <div className="mapa">
       <svg viewBox={`0 0 ${LARGURA} ${ALTURA}`} role="img" aria-label="Mapa do Brasil colorido pelo potencial de ativação por estado">
         {caminhos.map((c) => {
@@ -82,7 +100,7 @@ export default function MapaBrasil({ ufs, selecionada, onSelecionar, onSimular }
             <path
               key={c.cod}
               d={c.d}
-              fill={u ? (sel ? corInvertida(faixa(u.potencial)) : RAMPA[faixa(u.potencial)]) : "var(--trilho)"}
+              fill={u ? (sel ? corInvertida(faixa(valorDe(u))) : RAMPA[faixa(valorDe(u))]) : "var(--trilho)"}
               className={`uf ${sel ? "selecionada" : ""}`}
               onMouseEnter={() => setHover(c.cod)}
               onMouseLeave={() => setHover(null)}
@@ -96,7 +114,7 @@ export default function MapaBrasil({ ufs, selecionada, onSelecionar, onSimular }
           const u = porCod.get(c.cod);
           if (!u) return null;
           // o rótulo acompanha a cor do estado: fundo escuro -> texto branco (no selecionado, a cor é invertida)
-          const escuro = faixa(u.potencial) >= 3;
+          const escuro = faixa(valorDe(u)) >= 3;
           const fundoEscuro = u.sigla === selecionada ? !escuro : escuro;
           return (
             <text key={`t${c.cod}`} x={c.cx + (DESLOCAMENTO[c.cod]?.[0] ?? 0)} y={c.cy + (DESLOCAMENTO[c.cod]?.[1] ?? 0)}
@@ -108,7 +126,7 @@ export default function MapaBrasil({ ufs, selecionada, onSelecionar, onSimular }
       </svg>
       <div className="mapa-lado">
         <div className="legenda-seq">
-          <span className="rotulo">Potencial de ativação</span>
+          <span className="rotulo">{METRICAS[metrica].rotulo}</span>
           <div className="escala">
             {RAMPA.map((c, i) => <span key={i} style={{ background: c }} />)}
           </div>
@@ -122,7 +140,11 @@ export default function MapaBrasil({ ufs, selecionada, onSelecionar, onSimular }
               <dt>Ocasião de pizza</dt><dd>{ativa.lift_medio.toFixed(2)}× a média Brasil</dd>
               <dt>Share de guaraná (região)</dt><dd>{(ativa.share_guarana_regiao * 100).toFixed(0)}%</dd>
               <dt>Pizzarias / 100 mil hab.</dt><dd>{ativa.pizzarias_100k.toFixed(1)}</dd>
-              <dt>Canal sugerido</dt><dd>{ativa.canal_sugerido}</dd>
+              <dt>Canal sugerido</dt>
+              <dd className="canal-sug">
+                <IconeCanal canal={ativa.canal_sugerido.startsWith("Delivery") ? "delivery" : "casa"} tamanho={28} />
+                {ativa.canal_sugerido}
+              </dd>
             </dl>
             {fixada && (
               <div className="ficha-acao">
@@ -136,5 +158,6 @@ export default function MapaBrasil({ ufs, selecionada, onSelecionar, onSimular }
         )}
       </div>
     </div>
+    </>
   );
 }

@@ -43,6 +43,7 @@ export type Predicao = {
   recommendation_label: string;
   recommendation_reason: string;
   rule_fired: string;
+  briefing: { canal: "ponto" | "delivery" | "casa"; cartoes: { titulo: string; valor: string }[]; aviso: string } | null;
   acoes_complementares: { categoria: string; label: string; motivo: string }[];
   model_metadata: {
     modelo: string;

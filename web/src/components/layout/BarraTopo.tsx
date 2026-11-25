@@ -1,11 +1,14 @@
 import "./layout.css";
 
-/** Barra azul-marinho fixa no topo, com os links para cada seção. */
+/** Barra verde-escuro fixa no topo, com os links para cada seção. */
 export default function BarraTopo() {
   return (
     <header className="barra-topo">
       <div className="barra-conteudo">
-        <span className="marca">Occasion Intelligence <span className="marca-sub">Pizza + Guaraná</span></span>
+        <a className="marca" href="#">
+          <img className="marca-logo" src="/logo.png" alt="" width="40" height="40" />
+          <span>Occasion Intelligence <span className="marca-sub">Pizza + Guaraná</span></span>
+        </a>
         <nav>
           <a href="#ato1">1 · Onde</a>
           <a href="#ato2">2 · O que falta</a>

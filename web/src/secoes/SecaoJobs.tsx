@@ -4,11 +4,11 @@ import Insight from "../components/comum/Insight";
 import ListaJobs from "../components/jobs/ListaJobs";
 
 /** Ato 2 — que tipo de ocasião é (jobs) e onde o Guaraná ainda não está. */
-export default function SecaoJobs({ opo }: { opo: Oportunidades | null }) {
+export default function SecaoJobs({ opo, onSimularJob }: { opo: Oportunidades | null; onSimularJob: (job: string) => void }) {
   return (
     <section id="ato2" className="secao">
-      <CabecalhoSecao num={2} titulo="Que tipo de ocasião é — e onde o Guaraná ainda não está"
-        texto="Agrupamos (K-means) as ocasiões de pizza da POF em jobs to be done: o “trabalho” que a pizza cumpre. A barra mostra quantos dos refrigerantes de cada job são guaraná; o traço escuro é a média Brasil." />
+      <CabecalhoSecao num={2} titulo="Da ocasião à oportunidade: onde entra Guaraná?"
+        texto="Agrupamos (K-means) as ocasiões de pizza da POF em jobs to be done: o “trabalho” que a pizza cumpre. A barra mostra quantos dos refrigerantes de cada job são guaraná; o traço escuro é a média Brasil. Clique num job para simulá-lo." />
 
       {/* achados dos notebooks 02 e 04 */}
       <div className="insights">
@@ -21,7 +21,7 @@ export default function SecaoJobs({ opo }: { opo: Oportunidades | null }) {
       </div>
 
       <div className="cartao">
-        {opo ? <ListaJobs opo={opo} /> : <p className="mudo">Carregando…</p>}
+        {opo ? <ListaJobs opo={opo} onSimular={onSimularJob} /> : <p className="mudo">Carregando…</p>}
       </div>
     </section>
   );

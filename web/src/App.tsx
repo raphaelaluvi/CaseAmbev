@@ -1,7 +1,9 @@
 import { useSimulador } from "./hooks/useSimulador";
 import BarraTopo from "./components/layout/BarraTopo";
 import Hero from "./components/layout/Hero";
+import Kpis from "./components/layout/Kpis";
 import Rodape from "./components/layout/Rodape";
+import Revelar from "./components/comum/Revelar";
 import SecaoMapa from "./secoes/SecaoMapa";
 import SecaoJobs from "./secoes/SecaoJobs";
 import SecaoSimulador from "./secoes/SecaoSimulador";
@@ -13,11 +15,12 @@ export default function App() {
   return (
     <>
       <BarraTopo />
-      <Hero opo={sim.opo} res={sim.res} />
+      <Hero />
       <main className="pagina">
-        <SecaoMapa opo={sim.opo} onSimularUf={sim.selecionarUfNoMapa} />
-        <SecaoJobs opo={sim.opo} />
-        <SecaoSimulador sim={sim} />
+        <Kpis opo={sim.opo} res={sim.res} />
+        <Revelar><SecaoMapa opo={sim.opo} onSimularUf={sim.selecionarUfNoMapa} /></Revelar>
+        <Revelar><SecaoJobs opo={sim.opo} onSimularJob={sim.aplicarJob} /></Revelar>
+        <Revelar><SecaoSimulador sim={sim} /></Revelar>
       </main>
       <Rodape />
     </>

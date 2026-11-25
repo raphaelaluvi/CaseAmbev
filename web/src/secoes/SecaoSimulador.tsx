@@ -7,7 +7,7 @@ import Resultado from "../components/simulador/Resultado";
 export default function SecaoSimulador({ sim }: { sim: ReturnType<typeof useSimulador> }) {
   return (
     <section id="ato3" className="secao">
-      <CabecalhoSecao num={3} titulo="O que fazer: simule um contexto"
+      <CabecalhoSecao num={3} titulo="ONDE A PIZZA ACONTECE, ONDE GUARANÁ PODE CHEGAR."
         texto="Descreva a ocasião. O score, a recomendação e o plano de campanha se atualizam sozinhos." />
       <FormularioContexto ctx={sim.ctx} clima={sim.clima} carregando={sim.carregando}
         set={sim.set} mudarUf={sim.mudarUf} mudarDia={sim.mudarDia} onConsultarClima={sim.consultarClima} />

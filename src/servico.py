@@ -12,6 +12,7 @@ import joblib
 import numpy as np
 import pandas as pd
 
+from src.briefing import montar_briefing
 from src.decision_engine import Entrada, classificar, decidir
 from src.explicar import Explicador
 from src.features import derivar
@@ -88,6 +89,7 @@ class Servico:
             job=job, chuva_prevista=chuva_prevista, top_fatores=fatores,
         )
         decisao = decidir(entrada)
+        briefing = montar_briefing(decisao["recommendation_category"], job, ctx["dia_semana"], int(ctx["hora"]), chuva_prevista)
         return {
             "occasion_score": round(p, 5),
             "occasion_score_pct": round(100 * p, 2),
@@ -103,6 +105,7 @@ class Servico:
                 "brasil": br,
             },
             **decisao,
+            "briefing": briefing,
             "model_metadata": {
                 "modelo": self.meta["modelo"], "versao": self.meta["versao"],
                 "taxa_base": taxa_base, "limiar_alta": limiar,

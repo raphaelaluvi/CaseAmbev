@@ -8,7 +8,7 @@ a { color: var(--verde-escuro); }
 :focus-visible { outline: 3px solid var(--verde); outline-offset: 2px; }
 
 /* largura máxima e espaço entre as seções */
-.pagina { max-width: 1200px; margin: 0 auto; padding: 8px 16px 64px; display: grid; gap: 56px; }
+.pagina { max-width: 1200px; margin: 0 auto; padding: 30px 10px 64px; display: grid; gap: 10px; }
 .secao { display: grid; gap: 18px; padding-top: 32px; }
 
 /* textos */

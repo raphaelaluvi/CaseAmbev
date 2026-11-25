@@ -113,6 +113,23 @@ def test_previsao_usa_proximo_dia_da_semana_escolhido():
     assert proxima_data(None, sabado) == sabado                        # sem dia -> hoje
 
 
+# ------------------------------------------------------------------ briefing de campanha
+def test_briefing_por_categoria():
+    from src.briefing import montar_briefing
+    assert montar_briefing("NAO_PRIORIZAR", None, "Sabado", 20) is None
+    for cat in ["ATIVACAO_PONTO_DE_CONSUMO", "ATIVACAO_DELIVERY", "COMBO_CASA", "AWARENESS_ASSOCIACAO", "MANUTENCAO_MARCA"]:
+        b = montar_briefing(cat, "Jantar em família com crianças", "Sexta-Feira", 20)
+        assert len(b["cartoes"]) == 6 and b["canal"] in {"ponto", "delivery", "casa"}
+        assert "vai vender" not in str(b).lower()
+
+
+def test_briefing_momento_e_chuva():
+    from src.briefing import montar_briefing
+    b = montar_briefing("ATIVACAO_DELIVERY", None, "Sexta-Feira", 0, chuva_prevista=True)
+    momento = next(c["valor"] for c in b["cartoes"] if c["titulo"] == "Momento")
+    assert momento.startswith("sexta, 0h às 1h") and "chuva" in momento
+
+
 # ------------------------------------------------------------------ API
 artefatos = [ROOT / "models" / "occasion_model.joblib", ROOT / "data" / "external" / "territorio_uf.csv"]
 

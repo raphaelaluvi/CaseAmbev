@@ -16,7 +16,7 @@ export default function SecaoMapa({ opo, onSimularUf }: {
 
   return (
     <section id="ato1" className="secao">
-      <CabecalhoSecao num={1} titulo="Onde a ocasião de pizza acontece — e onde falta Guaraná"
+      <CabecalhoSecao num={1} titulo="Onde tem pizza, tem espaço para Guaraná."
         texto="Potencial = quanto a ocasião de pizza acontece × quanto falta de Guaraná. Troque a métrica para ver cada parte." />
       <div className="cartao">
         {opo?.ufs?.length ? (

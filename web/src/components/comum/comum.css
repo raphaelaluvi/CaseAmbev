@@ -22,3 +22,8 @@
 
 /* ícone do canal: a máscara deixa o ícone da cor do texto (currentColor) */
 .icone-canal { display: inline-block; flex: none; background: currentColor; mask-size: contain; mask-repeat: no-repeat; mask-position: center; -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; }
+
+/* aparece ao rolar (some para quem prefere menos movimento) */
+.revelar { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+.revelar.visivel { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .revelar { opacity: 1; transform: none; transition: none; } }

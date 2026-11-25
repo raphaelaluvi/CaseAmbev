@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { api, type Clima, type Contexto, type Oportunidades, type Predicao } from "../services/api";
 import { CONTEXTO_PADRAO } from "../utils/constantes";
+import { PERFIL_JOB } from "../utils/jobs";
 
 /** Todo o "estado" da página num lugar só: o contexto do simulador, a resposta da API,
  *  a previsão do tempo e os dados de oportunidade (mapa e jobs). */
@@ -51,6 +52,13 @@ export function useSimulador() {
     document.getElementById("ato3")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  /** Clique num job: preenche o simulador com o perfil típico dele e rola até a seção 3. */
+  function aplicarJob(nome: string) {
+    setCtx((c) => ({ ...c, ...PERFIL_JOB[nome], chuva_prevista: null }));
+    setClima(null);
+    document.getElementById("ato3")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   async function consultarClima() {
     try {
       const c = await api.clima(ctx.uf, ctx.dia_semana);
@@ -61,5 +69,5 @@ export function useSimulador() {
     }
   }
 
-  return { ctx, res, opo, clima, erro, carregando, set, mudarUf, mudarDia, consultarClima, selecionarUfNoMapa };
+  return { ctx, res, opo, clima, erro, carregando, set, mudarUf, mudarDia, consultarClima, selecionarUfNoMapa, aplicarJob };
 }

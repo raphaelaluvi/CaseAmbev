@@ -16,14 +16,12 @@ export default function SecaoMapa({ opo, onSimularUf }: {
 
   return (
     <section id="ato1" className="secao">
-      <CabecalhoSecao num={1} titulo="Onde tem pizza, tem espaço para Guaraná."
-        texto="Potencial = quanto a ocasião de pizza acontece × quanto falta de Guaraná. Troque a métrica para ver cada parte." />
+      <CabecalhoSecao num={1} titulo="Onde tem pizza, tem espaço para Guaraná." />
       <div className="cartao">
         {opo?.ufs?.length ? (
           <>
             <MapaBrasil ufs={opo.ufs} selecionada={ufFixada} onSelecionar={clicar} onSimular={onSimularUf} />
             <div className="mapa-rodape">
-              <span className="mudo pequeno">Clique num estado para fixar os detalhes; clique de novo para simulá-lo.</span>
               <button type="button" className="secundario" onClick={() => modal.current?.showModal()}>Ver ranking</button>
             </div>
             <dialog ref={modal} className="modal" onClick={(e) => e.target === modal.current && modal.current.close()}>

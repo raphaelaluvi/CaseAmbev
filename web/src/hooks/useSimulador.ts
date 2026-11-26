@@ -52,6 +52,9 @@ export function useSimulador() {
     document.getElementById("ato3")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  /** Aplica vários campos de uma vez (cenários rápidos). */
+  const aplicar = (parcial: Partial<Contexto>) => { setCtx((c) => ({ ...c, ...parcial, chuva_prevista: null })); setClima(null); };
+
   /** Clique num job: preenche o simulador com o perfil típico dele e rola até a seção 3. */
   function aplicarJob(nome: string) {
     setCtx((c) => ({ ...c, ...PERFIL_JOB[nome], chuva_prevista: null }));
@@ -69,5 +72,5 @@ export function useSimulador() {
     }
   }
 
-  return { ctx, res, opo, clima, erro, carregando, set, mudarUf, mudarDia, consultarClima, selecionarUfNoMapa, aplicarJob };
+  return { aplicar, ctx, res, opo, clima, erro, carregando, set, mudarUf, mudarDia, consultarClima, selecionarUfNoMapa, aplicarJob };
 }

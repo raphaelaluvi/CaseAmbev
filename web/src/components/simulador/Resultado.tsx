@@ -1,17 +1,23 @@
+import { useState } from "react";
 import type { Predicao } from "../../services/api";
+import Contador from "../comum/Contador";
 import { CLASSE_LABEL } from "../../utils/constantes";
 import Comparacao from "../comum/Comparacao";
 import IconeCanal from "../comum/IconeCanal";
 import "./simulador.css";
 
 /** Resultado enxuto: placar, recomendação, plano de campanha e contexto de Guaraná. */
-export default function Resultado({ r }: { r: Predicao }) {
+type Fixado = { score: number; descricao: string };
+
+export default function Resultado({ r, descricao, children }: { r: Predicao; descricao: string; children?: React.ReactNode }) {
+  const [fixado, setFixado] = useState<Fixado | null>(null);
   return (
     <>
       <div className="resultado-topo">
-        <PlacarScore r={r} />
+        <PlacarScore r={r} fixado={fixado} onFixar={() => setFixado({ score: r.occasion_score, descricao })} onLimpar={() => setFixado(null)} />
         <Recomendacao r={r} />
       </div>
+      {children}
       {r.briefing && <Briefing r={r} />}
       <div className="grade-2">
         <div className="cartao">
@@ -36,12 +42,13 @@ function posicao(r: Predicao) {
   return 66 + Math.min((s - l) / l, 1) * 34;
 }
 
-function PlacarScore({ r }: { r: Predicao }) {
+function PlacarScore({ r, fixado, onFixar, onLimpar }: { r: Predicao; fixado: Fixado | null; onFixar: () => void; onLimpar: () => void }) {
+  const delta = fixado ? (r.occasion_score - fixado.score) * 100 : 0;
   return (
     <div className="cartao destaque">
       <span className="rotulo">Occasion Score</span>
       <div className="placar-linha">
-        <span className="numero">{r.occasion_score_pct.toFixed(2)}%</span>
+        <span className="numero"><Contador fim={r.occasion_score_pct} decimais={2} sufixo="%" /></span>
         <span className={`selo ${r.classification}`}>{CLASSE_LABEL[r.classification]}</span>
       </div>
       <div className="termometro" aria-hidden="true">
@@ -49,6 +56,15 @@ function PlacarScore({ r }: { r: Predicao }) {
       </div>
       <div className="termo-txt"><span>baixa</span><span>média</span><span>alta</span></div>
       <span className="mudo pequeno">{r.lift.toFixed(1)}× a média Brasil</span>
+      {fixado ? (
+        <div className="comparar">
+          <span>Fixado: <b>{(fixado.score * 100).toFixed(2)}%</b> · {fixado.descricao}</span>
+          <span className={`delta ${delta >= 0 ? "sobe" : "desce"}`}>{delta >= 0 ? "▲" : "▼"} {Math.abs(delta).toFixed(2)} p.p. agora</span>
+          <button type="button" className="link" onClick={onLimpar}>limpar</button>
+        </div>
+      ) : (
+        <button type="button" className="fixar" onClick={onFixar}>Fixar para comparar</button>
+      )}
     </div>
   );
 }

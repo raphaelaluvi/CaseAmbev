@@ -1,6 +1,7 @@
 import type { Clima, Contexto } from "../../services/api";
 import { DIAS, DIA_LABEL, LOCAIS, REFEICOES, UFS } from "../../utils/constantes";
 import { dataBR } from "../../utils/formatar";
+import { CENARIOS } from "../../utils/cenarios";
 import "./simulador.css";
 
 type Props = {
@@ -11,6 +12,7 @@ type Props = {
   mudarUf: (uf: string) => void;
   mudarDia: (dia: string) => void;
   onConsultarClima: () => void;
+  onCenario: (parcial: Partial<Contexto>) => void;
 };
 
 function Chips({ opcoes, valor, onEscolher }: { opcoes: [string, string][]; valor: string; onEscolher: (v: string) => void }) {
@@ -26,12 +28,21 @@ function Chips({ opcoes, valor, onEscolher }: { opcoes: [string, string][]; valo
 const num = (e: React.ChangeEvent<HTMLInputElement>) => +e.target.value;
 
 /** Formulário horizontal: o resultado se atualiza sozinho a cada mudança. */
-export default function FormularioContexto({ ctx, clima, carregando, set, mudarUf, mudarDia, onConsultarClima }: Props) {
+export default function FormularioContexto({ ctx, clima, carregando, set, mudarUf, mudarDia, onConsultarClima, onCenario }: Props) {
   return (
     <form className="cartao formulario" onSubmit={(e) => e.preventDefault()}>
       <div className="form-topo">
         <h3>Descreva a ocasião</h3>
         <span className="mudo pequeno">{carregando ? "Calculando…" : "Atualiza sozinho"}</span>
+      </div>
+
+      <div className="cenarios">
+        <span className="rotulo">Cenários rápidos</span>
+        <div className="chips">
+          {CENARIOS.map((c) => (
+            <button key={c.nome} type="button" className="chip cenario" onClick={() => onCenario(c.ctx)}>{c.nome}</button>
+          ))}
+        </div>
       </div>
 
       <div className="form-bloco">

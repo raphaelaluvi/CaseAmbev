@@ -39,9 +39,21 @@
 .ficha-acao span { color: rgba(255, 255, 255, .7); }
 
 .mapa-metricas { margin-bottom: 16px; }
-.mapa-rodape { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+.mapa-rodape { display: flex; justify-content: flex-end; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
 .canal-sug { display: flex; align-items: center; gap: 8px; }
-.modal { border: none; border-radius: var(--canto); padding: 24px; width: min(920px, 94vw); max-height: 86vh; background: var(--superficie); color: var(--texto); }
+.modal { border: none; border-radius: var(--canto); padding: 24px; width: min(1040px, 94vw); max-height: 86vh; background: var(--superficie); color: var(--texto); }
 .modal::backdrop { background: rgba(0, 59, 40, .55); }
 .modal-cab { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
 .modal-cab h3 { margin: 0; }
+
+/* no modal, a tabela cabe na largura: textos quebram em linha e a barra encolhe */
+.modal .tabela-rolagem { overflow-x: visible; }
+.modal .ranking { table-layout: fixed; }
+.modal .ranking th, .modal .ranking td { white-space: normal; }
+.modal .ranking th:nth-child(1) { width: 4%; }
+.modal .ranking th:nth-child(2) { width: 6%; }
+.modal .ranking th:nth-child(3) { width: 12%; }
+.modal .ranking th:nth-child(4) { width: 22%; }
+.modal .ranking th:nth-child(8) { width: 20%; }
+.modal .col-barra { min-width: 0; }
+.modal .col-barra .trilho { width: calc(100% - 46px); }

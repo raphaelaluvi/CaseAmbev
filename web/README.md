@@ -24,15 +24,15 @@ web/
     │
     ├── secoes/                 cada bloco grande da página (um "ato")
     │   ├── SecaoMapa.tsx       ato 1: título + mapa + ranking
-    │   ├── SecaoJobs.tsx       ato 2: título + 3 cartões de insight + jobs   ← textos dos insights aqui
+    │   ├── SecaoJobs.tsx       ato 2: título + explorador de jobs
     │   ├── SecaoSimulador.tsx  ato 3: título + formulário + resultado
     │   └── SecaoComoFunciona.tsx  fluxo, métricas e limitações              ← textos do método aqui
     │
     ├── components/             peças menores, cada uma com o seu CSS ao lado
     │   ├── layout/             BarraTopo (menu), Hero (faixa azul + números), Rodape
-    │   ├── comum/              CabecalhoSecao (número + título), Comparacao (barra × Brasil), Insight
+    │   ├── comum/              CabecalhoSecao (número + título), Comparacao (barra × Brasil), Contador, Revelar
     │   ├── mapa/               MapaBrasil (mapa clicável), RankingUF (tabela)
-    │   ├── jobs/               ListaJobs (cartões dos jobs)
+    │   ├── jobs/               ExploradorJobs (achados clicáveis, ranking animado e detalhe do job)
     │   ├── simulador/          FormularioContexto (campos), Resultado (score, recomendação, SHAP, job)
     │   └── metodo/             Metricas (números do modelo)
     │
@@ -52,7 +52,7 @@ web/
 | mudar o título grande ou os 4 números do topo | `src/components/layout/Hero.tsx` |
 | mudar o texto do menu | `src/components/layout/BarraTopo.tsx` |
 | mudar a ordem das seções ou tirar uma | `src/App.tsx` |
-| editar os cartões de insight | `src/secoes/SecaoJobs.tsx` |
+| editar os achados da seção 2 | `LENTES` em `src/components/jobs/ExploradorJobs.tsx` |
 | mudar o visual do mapa | `src/components/mapa/mapa.css` (cores: `--seq-1` a `--seq-5` em `tokens.css`) |
 | mudar campos do formulário | `src/components/simulador/FormularioContexto.tsx` (opções em `utils/constantes.ts`) |
 | mudar o cartão da recomendação ou do score | `src/components/simulador/Resultado.tsx` |

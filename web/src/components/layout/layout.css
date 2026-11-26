@@ -1,5 +1,5 @@
 /* ---------- barra do topo (verde-escuro, fixa) */
-.barra-topo { position: sticky; top: 0; z-index: 10; background: var(--verde-escuro); color: #fff; }
+.barra-topo { position: sticky; top: 0; z-index: 10; background: var(--verde-escuro); color: #fff; border-bottom: 3px solid var(--fundo); }
 .barra-conteudo { max-width: 1200px; margin: 0 auto; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
 .marca { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; font-size: .9rem; }
 /* logo sobre uma pastilha clara, para o vermelho não se perder no verde-escuro */

@@ -3,7 +3,7 @@
 /* cabeçalho de seção (número + título) */
 .secao-cab { display: flex; gap: 16px; align-items: flex-start; }
 .secao-num {
-  flex: none; width: 44px; height: 44px; border-radius: 0 16px; background: var(--verde); color: #fff;
+  flex: none; width: 44px; height: 44px; border-radius: 0 13px; background: var(--verde); color: #fff;
   display: grid; place-items: center; font-weight: 800; font-size: 1.2rem;
 }
 .secao-cab h2 { font-size: clamp(1.35rem, 2.6vw, 1.8rem); font-weight: 800; text-transform: uppercase; letter-spacing: -.005em; }
@@ -13,12 +13,6 @@
 .comparacao .cab { display: flex; justify-content: space-between; font-size: .88rem; color: var(--texto-2); }
 .comparacao .cab b { color: var(--texto); }
 
-/* cartões de insight — mesmo modelo do card da página do Guaraná (verde-escuro, texto branco, cantos em diagonal) */
-.insight { border-radius: var(--canto); padding: 28px 26px; background: var(--verde-escuro); color: #fff; }
-.insight h3 { color: #fff; font-size: 1.15rem; font-weight: 700; margin: 12px 0 8px; line-height: 1.3; }
-.insight p { margin: 0; color: rgba(255, 255, 255, .88); font-size: .98rem; line-height: 1.5; }
-.insight-tag { display: inline-block; font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; padding: 4px 12px; border-radius: 999px; background: #fff; color: var(--verde-escuro); }
-.insight.positivo .insight-tag { background: var(--verde-claro); color: var(--verde-escuro); }
 
 /* ícone do canal: a máscara deixa o ícone da cor do texto (currentColor) */
 .icone-canal { display: inline-block; flex: none; background: currentColor; mask-size: contain; mask-repeat: no-repeat; mask-position: center; -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; }

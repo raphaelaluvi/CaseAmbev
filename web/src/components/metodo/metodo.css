@@ -1,9 +1,0 @@
-.fluxo { list-style: none; padding: 0; margin: 0 0 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; counter-reset: passo; }
-.fluxo li { background: var(--fundo); border-radius: 12px; padding: 14px; display: grid; gap: 4px; font-size: .88rem; color: var(--texto-2); counter-increment: passo; }
-.fluxo li b { color: var(--verde-escuro); }
-.fluxo li b::before { content: counter(passo) ". "; color: var(--verde); }
-.metricas { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 8px 0 18px; }
-.metricas div { display: grid; gap: 2px; }
-.metricas b { font-size: 1.6rem; font-weight: 800; color: var(--verde-escuro); font-variant-numeric: tabular-nums; }
-.metodo h3 { font-weight: 800; text-transform: uppercase; font-size: .95rem; }
-.limites { color: var(--texto-2); font-size: .9rem; padding-left: 18px; }

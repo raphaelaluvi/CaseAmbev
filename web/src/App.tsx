@@ -19,7 +19,7 @@ export default function App() {
       <main className="pagina">
         <Kpis opo={sim.opo} res={sim.res} />
         <Revelar><SecaoMapa opo={sim.opo} onSimularUf={sim.selecionarUfNoMapa} /></Revelar>
-        <Revelar><SecaoJobs opo={sim.opo} onSimularJob={sim.aplicarJob} /></Revelar>
+        <Revelar><SecaoJobs opo={sim.opo} /></Revelar>
         <Revelar><SecaoSimulador sim={sim} /></Revelar>
       </main>
       <Rodape />

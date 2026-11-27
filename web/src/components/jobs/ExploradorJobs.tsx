@@ -15,7 +15,7 @@ const LENTES = [
     texto: "Pizza fora de casa com amigos e pizza em casa no meio da semana têm os menores shares: espaço para awareness.",
     jobs: ["Pizza fora de casa (social)", "Pizza em casa no meio da semana (adultos)"] },
   { id: "renda", tag: "Oportunidade", titulo: "Mais pizza, menos guaraná nas faixas de renda mais altas",
-    texto: "O quintil de renda mais alto come mais pizza, mas tem o menor share de guaraná (~17%) — o oposto do que o TAPI relata nos dados internos.",
+    texto: "O quintil de renda mais alto come mais pizza, mas tem o menor share de guaraná (~17%).",
     jobs: ["Pizza fora de casa (social)", "Pizza em casa no meio da semana (adultos)", "Noite de fim de semana em casa (adultos)"] },
 ];
 
@@ -28,7 +28,7 @@ type Metrica = keyof typeof METRICAS;
 
 const ALTURA_LINHA = 62;
 
-export default function ExploradorJobs({ opo, onSimular }: { opo: Oportunidades; onSimular: (job: string) => void }) {
+export default function ExploradorJobs({ opo }: { opo: Oportunidades }) {
   const [metrica, setMetrica] = useState<Metrica>("share");
   const [lente, setLente] = useState<string | null>(null);
   const [escolhido, setEscolhido] = useState<string | null>(null);
@@ -88,13 +88,13 @@ export default function ExploradorJobs({ opo, onSimular }: { opo: Oportunidades;
           </div>
         </div>
 
-        <Detalhe job={atual} brasil={opo.brasil} onSimular={onSimular} />
+        <Detalhe job={atual} brasil={opo.brasil} />
       </div>
     </>
   );
 }
 
-function Detalhe({ job, brasil, onSimular }: { job: Job; brasil: Oportunidades["brasil"]; onSimular: (job: string) => void }) {
+function Detalhe({ job, brasil }: { job: Job; brasil: Oportunidades["brasil"] }) {
   const perfil = PERFIL_JOB[job.job];
   const dif = Math.round((job.share_guarana - brasil.share_guarana) * 100);
   // mesma ordem das regras R4–R6 do Decision Engine
@@ -135,7 +135,6 @@ function Detalhe({ job, brasil, onSimular }: { job: Job; brasil: Oportunidades["
 
       <span className="rotulo">Caminho sugerido</span>
       <p className="caminho">{caminho}</p>
-      <button type="button" onClick={() => onSimular(job.job)}>Simular este job →</button>
     </div>
   );
 }

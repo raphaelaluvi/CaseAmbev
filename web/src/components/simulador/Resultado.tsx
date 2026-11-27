@@ -86,10 +86,10 @@ function Recomendacao({ r }: { r: Predicao }) {
           </span>
         ))}
       </div>
-      <details className="detalhes">
-        <summary>Por quê?</summary>
+      <div className="porque">
+        <span className="rotulo">Por quê?</span>
         <p>{r.recommendation_reason}</p>
-      </details>
+      </div>
     </div>
   );
 }

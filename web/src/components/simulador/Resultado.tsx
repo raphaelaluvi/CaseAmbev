@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { Predicao } from "../../services/api";
 import Contador from "../comum/Contador";
 import { CLASSE_LABEL } from "../../utils/constantes";
@@ -7,14 +6,11 @@ import IconeCanal from "../comum/IconeCanal";
 import "./simulador.css";
 
 /** Resultado enxuto: placar, recomendação, plano de campanha e contexto de Guaraná. */
-type Fixado = { score: number; descricao: string };
-
-export default function Resultado({ r, descricao, children }: { r: Predicao; descricao: string; children?: React.ReactNode }) {
-  const [fixado, setFixado] = useState<Fixado | null>(null);
+export default function Resultado({ r, children }: { r: Predicao; children?: React.ReactNode }) {
   return (
     <>
       <div className="resultado-topo">
-        <PlacarScore r={r} fixado={fixado} onFixar={() => setFixado({ score: r.occasion_score, descricao })} onLimpar={() => setFixado(null)} />
+        <PlacarScore r={r} />
         <Recomendacao r={r} />
       </div>
       {children}
@@ -42,8 +38,7 @@ function posicao(r: Predicao) {
   return 66 + Math.min((s - l) / l, 1) * 34;
 }
 
-function PlacarScore({ r, fixado, onFixar, onLimpar }: { r: Predicao; fixado: Fixado | null; onFixar: () => void; onLimpar: () => void }) {
-  const delta = fixado ? (r.occasion_score - fixado.score) * 100 : 0;
+function PlacarScore({ r }: { r: Predicao }) {
   return (
     <div className="cartao destaque">
       <span className="rotulo">Occasion Score</span>
@@ -56,15 +51,6 @@ function PlacarScore({ r, fixado, onFixar, onLimpar }: { r: Predicao; fixado: Fi
       </div>
       <div className="termo-txt"><span>baixa</span><span>média</span><span>alta</span></div>
       <span className="mudo pequeno">{r.lift.toFixed(1)}× a média Brasil</span>
-      {fixado ? (
-        <div className="comparar">
-          <span>Fixado: <b>{(fixado.score * 100).toFixed(2)}%</b> · {fixado.descricao}</span>
-          <span className={`delta ${delta >= 0 ? "sobe" : "desce"}`}>{delta >= 0 ? "▲" : "▼"} {Math.abs(delta).toFixed(2)} p.p. agora</span>
-          <button type="button" className="link" onClick={onLimpar}>limpar</button>
-        </div>
-      ) : (
-        <button type="button" className="fixar" onClick={onFixar}>Fixar para comparar</button>
-      )}
     </div>
   );
 }

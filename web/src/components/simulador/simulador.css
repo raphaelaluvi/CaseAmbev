@@ -90,13 +90,4 @@ input[type="range"] { accent-color: var(--verde); width: 100%; }
 .chip.cenario { background: var(--verde-suave); border-color: var(--verde-suave); }
 .chip.cenario:hover { background: var(--verde-claro); border-color: var(--verde-claro); }
 
-/* ---------- comparar com um cenário fixado */
-.fixar { justify-self: start; background: transparent; color: #fff; border: 2px solid rgba(255, 255, 255, .5); padding: 6px 14px; font-size: .72rem; }
-.fixar:hover { background: rgba(255, 255, 255, .12); }
-.comparar { display: grid; gap: 4px; padding: 10px 12px; border-radius: 12px; background: rgba(255, 255, 255, .1); font-size: .82rem; }
-.delta { font-weight: 800; font-size: 1rem; }
-.delta.sobe { color: var(--verde-claro); }
-.delta.desce { color: #ffd2bd; }
-.link { justify-self: start; background: none; padding: 0; color: rgba(255, 255, 255, .8); text-decoration: underline; text-transform: none; font-size: .78rem; letter-spacing: 0; }
-.link:hover { background: none; color: #fff; }
 

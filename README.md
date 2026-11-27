@@ -4,7 +4,7 @@
 
 Case individual · Inteli Academy × Ambev · Raphaela Rodrigues Luvizotto
 
-### ▶ [Vídeo de apresentação (até 5 min)](https://youtu.be/r-D8Go8H9U0)
+### ▶ [Vídeo de apresentação](https://youtu.be/r-D8Go8H9U0)
 Arquitetura, dados, métricas e validação, a API rodando e o site completo: da entrada ao Occasion Score e à recomendação.
 
 ---
